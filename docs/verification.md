@@ -15,7 +15,8 @@ Prepared 2026-10-29. This is a source snapshot for academic review, not a produc
 
 ## CI
 
-See the repository Actions tab for the exact commit and test outcome. This record will be updated with observed results before tagging.
+Initial complete workflow passed all four jobs (Backend build/regressions, isolated PostgreSQL/API tests, Web, Flutter): https://github.com/AmazonButton/Review-2/actions/runs/40884150121 (commit 7b10cc52d19889147b32bfdd37a22476339412c4).
+The final Home countdown refinement is verified again by the subsequent main-branch workflow; consult Actions for its exact revision.
 
 ## Scope limits
 
@@ -27,3 +28,5 @@ the Review 2 regression and database tests specify the updated common 120-second
 ## Source filtering
 
 A live Firebase smoke script containing a private-key block was excluded before any commit. No private-key files or .env files were staged. Other source histories are not imported. The owner should revoke/rotate any still-active key in the original repository.
+
+Hardware SVG files were parsed successfully as XML. Home modal countdown now derives from order creation time rather than restarting a full interval on a socket notification.

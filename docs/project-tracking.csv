@@ -1,0 +1,9 @@
+ID,Scope,Owner,PlannedStart,PlannedEnd,CurrentStatus,Evidence,ManualAcceptance
+I1-01,Login and basic roles,TBD,,,Source included and selected tests passed,backend/src/auth; mobile/test/login_screen_test.dart,Pending team demo
+I1-02,Stores and products,TBD,,,Source included and API CI passed,backend/tests/products-http.spec.ts,Pending team demo
+I1-03,Delivery addresses,TBD,,,Source included and CRUD tests passed,backend/tests/customer-addresses-crud.spec.ts; mobile/test/address_crud_integration_test.dart,Pending team demo
+I1-04,COD checkout,TBD,,,Source included and API CI passed,backend/tests/api.test.ts; storefront-checkout-refactor.spec.ts,Pending team demo
+I1-05,Store order processing,TBD,,,Source included and API CI passed,backend/src/orders,Pending team demo
+I1-06,Customer order tracking,TBD,,,Source included and timeline tests passed,backend/tests/order-filter-and-timeline.spec.ts,Pending team demo
+I1-07,Hardware research and proposed drawings,TBD,,,Proposal prepared and SVG XML validated,hardware/README.md; hardware/*.svg,Pending technical review; no assembled device
+I1-08,General customer cancellation within 120 seconds,TBD,,,Regression and isolated PostgreSQL checks passed,backend/tests/review2-cancellation*.spec.ts; frontend/tests; mobile/test/review2_cancellation_test.dart,Pending cross-client demo

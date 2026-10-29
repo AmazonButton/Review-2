@@ -1,3 +1,4 @@
+import { cancellationSecondsRemaining } from '../../utils/orderCancellation';
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -376,7 +377,7 @@ export const CustomerHomePage: React.FC = () => {
         setActiveSuccessOrder(data.order);
         setActiveCancelOrder(data.order);
         setShowSuccessModal(true);
-        setSecondsRemaining(data.cancelWindowSeconds || 120);
+        setSecondsRemaining(cancellationSecondsRemaining(data.order));
       }
     };
 
@@ -384,7 +385,7 @@ export const CustomerHomePage: React.FC = () => {
       fetchData();
 
       const updatedOrder = data?.order || data;
-      if (updatedOrder && updatedOrder.status && updatedOrder.status !== 'PENDING') {
+      if (updatedOrder && (updatedOrder.status || updatedOrder.orderStatus) && !['PENDING', 'CONFIRMED'].includes(updatedOrder.status || updatedOrder.orderStatus)) {
         setActiveCancelOrder((current) => {
           if (!current) return null;
           if (current.id === updatedOrder.id || current.orderNumber === updatedOrder.orderNumber) {
@@ -396,7 +397,7 @@ export const CustomerHomePage: React.FC = () => {
 
         setActiveSuccessOrder((current) => {
           if (current && (current.id === updatedOrder.id || current.orderNumber === updatedOrder.orderNumber)) {
-            return { ...current, status: updatedOrder.status };
+            return { ...current, status: updatedOrder.status || updatedOrder.orderStatus };
           }
           return current;
         });
@@ -497,7 +498,7 @@ export const CustomerHomePage: React.FC = () => {
     const matched = orders.find(
       (o) => o.id === activeCancelOrder.id || o.orderNumber === activeCancelOrder.orderNumber
     );
-    if (matched && matched.status !== 'PENDING') {
+    if (matched && !['PENDING', 'CONFIRMED'].includes(matched.status || (matched as any).orderStatus)) {
       setActiveCancelOrder(null);
       setSecondsRemaining(0);
       return;
@@ -510,7 +511,7 @@ export const CustomerHomePage: React.FC = () => {
           setActiveCancelOrder(null);
           return 0;
         }
-        return prev - 1;
+        return cancellationSecondsRemaining(activeCancelOrder);
       });
     }, 1000);
 
@@ -526,7 +527,7 @@ export const CustomerHomePage: React.FC = () => {
         setActiveSuccessOrder(order);
         setActiveCancelOrder(order);
         setShowSuccessModal(true);
-        setSecondsRemaining(cancelWindowSeconds || 120);
+        setSecondsRemaining(cancellationSecondsRemaining(order));
         fetchData();
       }
     } catch (err: any) {

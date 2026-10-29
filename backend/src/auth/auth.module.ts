@@ -1,0 +1,38 @@
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
+import { JwtStrategy } from './jwt.strategy';
+import { AuthRateLimitGuard } from './guards/auth-rate-limit.guard';
+import { AuthRepository } from './auth.repository';
+import { MailModule } from '../mail/mail.module';
+import { FirebaseModule } from './firebase.module';
+import { FirebasePhoneService } from './firebase-phone.service';
+
+@Module({
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '15m' },
+    }),
+    MailModule,
+    FirebaseModule,
+  ],
+  controllers: [AuthController],
+  providers: [
+    AuthService,
+    AuthRepository,
+    JwtStrategy,
+    AuthRateLimitGuard,
+    FirebasePhoneService,
+  ],
+  exports: [
+    AuthService,
+    AuthRepository,
+    AuthRateLimitGuard,
+    FirebasePhoneService,
+  ],
+})
+export class AuthModule {}

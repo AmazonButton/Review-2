@@ -1,0 +1,264 @@
+import * as crypto from 'crypto';
+import {
+  WebSocketGateway,
+  WebSocketServer,
+  SubscribeMessage,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
+} from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
+import { Injectable, Logger, Optional } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../prisma/prisma.service';
+import { TokenBlacklist } from '../auth/token-blacklist';
+
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'test') {
+      return 'ci_test_jwt_secret_key_minimum_32_characters_long_for_security!';
+    }
+    throw new Error('FATAL: JWT_SECRET environment variable is required and must not be empty');
+  }
+  return secret;
+}
+
+@Injectable()
+@WebSocketGateway({
+  cors: {
+    origin: process.env.ALLOWED_ORIGINS
+      ? process.env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
+      : ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:4173', 'https://smartorder.vn'],
+    credentials: true,
+  },
+})
+export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+  @WebSocketServer()
+  server: Server;
+
+  private readonly logger = new Logger(EventsGateway.name);
+  constructor(@Optional() private readonly prisma?: PrismaService) {}
+  private readonly jwtService = new JwtService({
+    secret: getJwtSecret(),
+  });
+
+  async handleConnection(client: Socket) {
+    try {
+      // Security: Only accept token via Authorization header or Socket.IO handshake.auth
+      // Query parameters are strictly rejected to prevent tokens appearing in access/proxy logs
+      const authHeader =
+        client.handshake.headers?.authorization ||
+        client.handshake.auth?.token;
+
+      let token = '';
+      if (typeof authHeader === 'string') {
+        token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : authHeader.trim();
+      }
+
+      if (!token) {
+        this.logger.warn(`⚠️ [WS] Rejecting unauthenticated socket connection: ${client.id}`);
+        client.disconnect(true);
+        return;
+      }
+
+      const secret = getJwtSecret();
+      const payload: any = this.jwtService.verify(token, { secret });
+      if (!payload || !payload.userId) {
+        this.logger.warn(`⚠️ [WS] Invalid token payload for socket: ${client.id}`);
+        client.disconnect(true);
+        return;
+      }
+
+      // 1. Check if token is in blacklist (multi-instance PostgreSQL + in-memory fallback)
+      if (this.prisma) {
+        const tokenHash = crypto.createHash('sha256').update(token.trim()).digest('hex');
+        const dbRevoked = await this.prisma.revokedToken.findUnique({
+          where: { tokenHash },
+        });
+        if (dbRevoked) {
+          this.logger.warn(`⚠️ [WS] Token found in PostgreSQL revoked_tokens for socket: ${client.id}`);
+          client.disconnect(true);
+          return;
+        }
+      }
+
+      // Check in-memory blacklist with correct parameter order: (userId, iat, rawToken)
+      const isRevoked = TokenBlacklist.isRevoked(payload.userId, payload.iat, token);
+      if (isRevoked) {
+        this.logger.warn(`⚠️ [WS] Token revoked in memory for socket: ${client.id}`);
+        client.disconnect(true);
+        return;
+      }
+
+      // 2. Query user to verify ACTIVE status and passwordChangedAt
+      const dbUser = this.prisma ? await this.prisma.user.findUnique({
+        where: { userId: BigInt(payload.userId) },
+        select: { status: true, passwordChangedAt: true },
+      }) : null;
+
+      if (this.prisma && (!dbUser || dbUser.status !== 'ACTIVE')) {
+        this.logger.warn(`⚠️ [WS] Inactive or non-existent user for socket: ${client.id}`);
+        client.disconnect(true);
+        return;
+      }
+
+      if (dbUser.passwordChangedAt && payload.iat) {
+        const pwTimeSec = Math.floor(dbUser.passwordChangedAt.getTime() / 1000);
+        if (payload.iat < pwTimeSec) {
+          this.logger.warn(`⚠️ [WS] Token invalidated by password change for socket: ${client.id}`);
+          client.disconnect(true);
+          return;
+        }
+      }
+
+      client.data.user = {
+        userId: payload.userId?.toString(),
+        role: payload.role,
+        storeId: payload.storeId ? payload.storeId.toString() : null,
+        customerId: payload.customerProfileId ? payload.customerProfileId.toString() : null,
+      };
+
+      // Auto-join personal rooms
+      client.join(`user:${payload.userId}`);
+      client.join(`user_${payload.userId}`);
+      client.join(`driver:${payload.userId}`);
+
+      const targetStoreIds = new Set<string>();
+
+      // Query database for all stores owned by this user or where they are active staff
+      if (this.prisma) {
+        try {
+          const userBigInt = BigInt(payload.userId);
+          const [ownedStores, staffStores] = await Promise.all([
+            this.prisma.store.findMany({
+              where: { ownerUserId: userBigInt, status: 'ACTIVE' },
+              select: { storeId: true },
+            }),
+            this.prisma.storeStaff.findMany({
+              where: { userId: userBigInt, status: 'ACTIVE' },
+              select: { storeId: true },
+            }),
+          ]);
+
+          for (const s of ownedStores) {
+            targetStoreIds.add(s.storeId.toString());
+          }
+          for (const s of staffStores) {
+            targetStoreIds.add(s.storeId.toString());
+          }
+          if (payload.storeId && !targetStoreIds.has(payload.storeId.toString())) {
+            client.data.user.storeId = null;
+          }
+        } catch (storeQueryErr: any) {
+          this.logger.warn(`⚠️ [WS] Failed to fetch stores for user ${payload.userId}: ${storeQueryErr.message}`);
+        }
+      }
+
+      for (const sId of targetStoreIds) {
+        client.join(`store_${sId}`);
+        client.join(`store:${sId}`);
+      }
+
+      if (payload.customerProfileId) {
+        client.join(`customer_${payload.customerProfileId}`);
+        client.join(`customer:${payload.customerProfileId}`);
+      }
+
+      this.logger.log(`⚡ [WS] Authenticated socket connected: ${client.id} (User: ${payload.userId}, Role: ${payload.role})`);
+    } catch (err: any) {
+      this.logger.warn(`⚠️ [WS] Authentication failed for socket ${client.id}: ${err.message}`);
+      client.disconnect(true);
+    }
+  }
+
+  handleDisconnect(client: Socket) {
+    this.logger.log(`❌ [WS] Socket disconnected: ${client.id}`);
+  }
+
+  @SubscribeMessage('subscribe:store')
+  handleSubscribeStore(client: Socket, storeId: string) {
+    const user = client.data?.user;
+    if (!user) {
+      client.emit('error', { code: 'UNAUTHORIZED', message: 'Vui lòng xác thực trước khi tham gia room' });
+      return;
+    }
+
+    const isSuperAdmin = user.role === 'SUPER_ADMIN' || user.role === 'SYSTEM_ADMIN';
+    const isStoreStaff = user.storeId && user.storeId.toString() === storeId?.toString();
+
+    if (isSuperAdmin || isStoreStaff) {
+      client.join(`store_${storeId}`);
+      client.join(`store:${storeId}`);
+      this.logger.log(`🔌 Socket ${client.id} joined store_${storeId} and store:${storeId}`);
+    } else {
+      this.logger.warn(`⛔ [WS] Socket ${client.id} denied access to store_${storeId}`);
+      client.emit('error', { code: 'FORBIDDEN', message: 'Bạn không có quyền truy cập kênh của cửa hàng này' });
+    }
+  }
+
+  @SubscribeMessage('subscribe:customer')
+  handleSubscribeCustomer(client: Socket, customerId: string) {
+    const user = client.data?.user;
+    if (!user) {
+      client.emit('error', { code: 'UNAUTHORIZED', message: 'Vui lòng xác thực trước khi tham gia room' });
+      return;
+    }
+
+    const isSuperAdmin = user.role === 'SUPER_ADMIN' || user.role === 'SYSTEM_ADMIN';
+    const isCustomer = user.customerId && user.customerId.toString() === customerId?.toString();
+
+    if (isSuperAdmin || isCustomer) {
+      client.join(`customer_${customerId}`);
+      this.logger.log(`🔌 Socket ${client.id} joined customer_${customerId}`);
+    } else {
+      this.logger.warn(`⛔ [WS] Socket ${client.id} denied access to customer_${customerId}`);
+      client.emit('error', { code: 'FORBIDDEN', message: 'Bạn không có quyền truy cập kênh của khách hàng này' });
+    }
+  }
+
+  emitToStore(storeId: string, event: string, payload: any) {
+    if (this.server) {
+      this.server.to(`store_${storeId}`).emit(event, payload);
+      this.server.to(`store:${storeId}`).emit(event, payload);
+      this.logger.log(`📢 [WS -> Store ${storeId}] ${event}`);
+    }
+  }
+
+  emitToDriver(driverId: string, event: string, payload: any) {
+    if (this.server) {
+      this.server.to(`driver:${driverId}`).emit(event, payload);
+      this.server.to(`user:${driverId}`).emit(event, payload);
+      this.logger.log(`📢 [WS -> Driver ${driverId}] ${event}`);
+    }
+  }
+
+  emitToUser(userId: string, event: string, payload: any) {
+    if (this.server) {
+      this.server.to(`user:${userId}`).emit(event, payload);
+      this.server.to(`user_${userId}`).emit(event, payload);
+      this.logger.log(`📢 [WS -> User ${userId}] ${event}`);
+    }
+  }
+
+  emitToCustomer(customerId: string, event: string, payload: any) {
+    if (this.server) {
+      this.server.to(`customer_${customerId}`).emit(event, payload);
+      this.logger.log(`📢 [WS -> Customer ${customerId}] ${event}`);
+    }
+  }
+
+  emitGlobal(event: string, payload: any) {
+    if (this.server) {
+      this.server.emit(event, payload);
+    }
+  }
+
+  emitDeviceEvent(storeId: string | null, customerId: string | null, event: string, payload: any) {
+    if (storeId) {
+      this.emitToStore(storeId, event, payload);
+    }
+    if (customerId) {
+      this.emitToCustomer(customerId, event, payload);
+    }
+  }
+}

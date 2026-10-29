@@ -1,0 +1,243 @@
+name: Review 2 CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - review-2
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # ============================================================================
+  # JOB 1: CODE QUALITY, TYPECHECK & BUILD VERIFICATION
+  # ============================================================================
+  quality-and-build:
+    name: 🛡️ Code Quality & Build
+    defaults:
+      run:
+        working-directory: backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Static Type Check (TypeScript)
+        run: npx tsc --noEmit
+
+      - name: Build NestJS Application
+        run: npm run build
+
+      - name: Review 2 cancellation regression tests
+        run: npm run test:review2
+
+      - name: Cache Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-build
+          path: backend/dist/
+          retention-days: 1
+
+  # ============================================================================
+  # JOB 2: ISOLATED DATABASE & INTEGRATION TEST SUITES
+  # ============================================================================
+  database-and-tests:
+    name: 🧪 Isolated DB & Integration Tests
+    needs: quality-and-build
+    defaults:
+      run:
+        working-directory: backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgrespassword
+          POSTGRES_DB: smart_order_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      NODE_ENV: test
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/smart_order_test?schema=public
+      TEST_DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/smart_order_verification_test?schema=public
+      REDIS_URL: redis://localhost:6379
+      REDIS_HOST: localhost
+      REDIS_PORT: 6379
+      JWT_SECRET: ci_test_jwt_secret_key_minimum_32_characters_long_for_security!
+      JWT_ACCESS_SECRET: ci_test_jwt_access_secret_key_32_characters_minimum!
+      JWT_REFRESH_SECRET: ci_test_jwt_refresh_secret_key_32_characters_minimum!
+      DEFAULT_HMAC_SECRET: ci_test_hmac_secret_key_32_characters_minimum!
+      OTP_PEPPER: ci_test_otp_pepper_secret_key_minimum_32_characters!
+      BASE_URL: http://localhost:3000/api/v1
+      PAYOS_CLIENT_ID: ci_test_payos_client_id
+      PAYOS_API_KEY: ci_test_payos_api_key
+      PAYOS_CHECKSUM_KEY: ci_test_payos_checksum_key_32_chars!
+      PAYOS_PAYOUT_CHECKSUM_KEY: ci_test_payos_checksum_key_32_chars!
+      PAYOS_MOCK_PAYOUT: "true"
+      BANK_VERIFICATION_MOCK: "true"
+      BANK_VERIFICATION_AMOUNT_VND: "2000"
+      BANK_VERIFICATION_EXPIRY_MINUTES: "30"
+      BANK_VERIFICATION_WEBHOOK_SECRET: ci_test_bank_webhook_secret_key_12345
+      PLATFORM_BANK_ACCOUNT_NUMBER: "999888777666"
+      PLATFORM_BANK_BIN: "970422"
+      FIREBASE_PROJECT_ID: iot-button-e59d7
+      CLOUDINARY_CLOUD_NAME: ci_test_cloud
+      CLOUDINARY_API_KEY: ci_test_api_key
+      CLOUDINARY_API_SECRET: ci_test_api_secret_32_characters_long!
+      BANK_ACCOUNT_ENCRYPTION_KEY: 5dad52bd291a3e8f96f284cd7fcdb72d96d5f114c00e642dea09e9da19d0363d
+      BANK_ACCOUNT_HASH_SALT: 9a532ece4926c8cf15015651729b0c1e
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-build
+          path: backend/dist
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Initialize PostgreSQL Extensions Schema
+        run: |
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d smart_order_test -c "CREATE SCHEMA IF NOT EXISTS extensions; CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA extensions; CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\" WITH SCHEMA extensions;"
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -c "CREATE DATABASE smart_order_verification_test;"
+          PGPASSWORD=postgrespassword psql -h localhost -U postgres -d smart_order_verification_test -c "CREATE SCHEMA IF NOT EXISTS extensions; CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA extensions; CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\" WITH SCHEMA extensions;"
+
+      - name: Apply Database Migrations (Isolated CI DB)
+        run: |
+          npx prisma migrate deploy
+          DATABASE_URL="$TEST_DATABASE_URL" npx prisma migrate deploy
+
+      - name: Backfill and Verify Encrypted Snapshots (CI DB)
+        run: node scripts/backfill_and_verify_withdrawal_snapshots.js
+
+      - name: Seed Database (Fresh Baseline Data)
+        run: npm run prisma:seed
+
+      - name: Start Background Server for HTTP Testing
+        run: |
+          nohup npm run start:test > server.log 2>&1 &
+          echo $! > server.pid
+
+      - name: Wait for Server Readiness (/readyz)
+        run: |
+          npx --yes wait-on -t 60000 http://localhost:3000/readyz || (echo "=== SERVER LOG ON FAILURE ===" && cat server.log && exit 1)
+
+      - name: Review 2 database and API integration tests
+        run: |
+          npx tsx tests/review2-cancellation-db.spec.ts
+          npx tsx tests/api.test.ts
+          npx tsx tests/customer-addresses-crud.spec.ts
+          npx tsx tests/products-http.spec.ts
+          npx tsx tests/order-filter-and-timeline.spec.ts
+          npx tsx tests/storefront-checkout-refactor.spec.ts
+
+      - name: Stop Background Server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill $(cat server.pid) 2>/dev/null || true
+          fi
+
+      - name: Upload Test Logs on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-test-failure-logs
+          path: |
+            backend/server.log
+            backend/*.log
+          retention-days: 7
+
+
+  frontend:
+    name: Web build and cancellation tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+  mobile:
+    name: Flutter analysis and tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.7'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - run: flutter test --reporter expanded test/api_client_test.dart test/address_crud_integration_test.dart test/orders_api_integration_test.dart test/models_type_safety_test.dart test/validators_and_formatters_test.dart test/review2_cancellation_test.dart test/login_screen_test.dart test/logout_flow_test.dart test/home_and_orders_modular_widgets_test.dart

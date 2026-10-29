@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="600" viewBox="0 0 1100 600">
+<rect width="1100" height="600" fill="white"/>
+<g font-family="Arial,sans-serif" fill="#0f172a"><text x="35" y="45" font-size="25" font-weight="bold">Proposed external circuit — ESP32-DevKitC V4 (WROOM-32)</text><text x="35" y="76" font-size="16">Concept for review. Verify actual board pinout and component ratings before assembly.</text></g>
+<rect x="410" y="180" width="290" height="280" fill="#e0f2fe" stroke="#0369a1" stroke-width="3" rx="12"/>
+<g font-family="Arial,sans-serif" font-size="19" fill="#0f172a"><text x="455" y="225">ESP32 development board</text><text x="430" y="285">GPIO27</text><text x="605" y="285">GPIO25</text><text x="425" y="415">3V3</text><text x="625" y="415">GND</text><text x="495" y="150">USB input</text><text x="70" y="152">3V3 rail</text><text x="95" y="214">R1: 10 kΩ</text><text x="115" y="337">SW1 normally open</text><text x="835" y="245">R2: 330 Ω</text><text x="835" y="338">D1 LED</text></g>
+<g fill="none" stroke="#334155" stroke-width="3"><path d="M550 160V180"/><path d="M410 280H90V230"/><path d="M90 190V160H280V410H410"/><rect x="80" y="190" width="20" height="40"/><path d="M90 280V345M90 380V500H770V410H700"/><path d="M90 345L120 368"/><path d="M700 280H810"/><rect x="810" y="270" width="55" height="20"/><path d="M865 280H960V345M960 380V500H770"/><path d="M945 345H975L960 370Z"/><path d="M944 375H976"/></g>
+<g fill="#334155"><circle cx="90" cy="280" r="5"/><circle cx="770" cy="500" r="5"/></g>
+<g fill="none" stroke="#334155" stroke-width="2"><path d="M980 340L1000 320M988 348L1008 328"/><path d="M996 320H1000V324M1004 328H1008V332"/><path d="M550 500V515M530 515H570M536 522H564M543 529H557"/></g>
+<g font-family="Arial,sans-serif" fill="#475569" font-size="16"><text x="40" y="568">USB powers the development board. Logic rail is 3V3. Common GND. No battery/charger design in Iteration 1.</text></g></svg>

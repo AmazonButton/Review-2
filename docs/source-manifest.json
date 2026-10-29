@@ -1,0 +1,23 @@
+[
+  {
+    "repository": "https://github.com/AmazonButton/Backend",
+    "branch": "main",
+    "commit": "700dee1d410178f2fff0b2985a830e563569453c",
+    "destination": "backend",
+    "copied_files": 402
+  },
+  {
+    "repository": "https://github.com/AmazonButton/Frontend",
+    "branch": "dev",
+    "commit": "9cf7888a9d0450863e574389a283f72910ffc4c1",
+    "destination": "frontend",
+    "copied_files": 140
+  },
+  {
+    "repository": "https://github.com/AmazonButton/Mobile",
+    "branch": "main",
+    "commit": "2bacc9635ced7bd8f2152f3b71b2ecf315799121",
+    "destination": "mobile",
+    "copied_files": 169
+  }
+]

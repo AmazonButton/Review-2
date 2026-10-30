@@ -12,9 +12,9 @@
     [
       "SR-01",
       "Planned",
-      "Tran Tan Phat / Le Ho Gia Bao",
+      "Tran Tan Phat",
       "03/11/2026",
-      "Agree an exact trusted staging-origin setting, implement validation/client alignment, and run positive/hostile-host redirect tests. Do not allow arbitrary vercel.app or disable URL validation. No fix commit asserted."
+      "Agree an exact trusted staging-origin setting, implement validation/client alignment, and run positive/hostile-host redirect tests. Do not allow arbitrary vercel.app or disable URL validation. No fix commit asserted. Support: Le Ho Gia Bao."
     ],
     [
       "SR-02",
@@ -33,9 +33,9 @@
     [
       "SR-04",
       "Planned",
-      "Le Ho Gia Bao / Tran Tan Phat",
+      "Le Ho Gia Bao",
       "03/11/2026",
-      "Create the actor-to-screen/API matrix for STAFF_ORDER/INVENTORY/BUTTON and generic staff; align entry and nested route visibility while preserving server object scope; test each allowed/denied path."
+      "Create the actor-to-screen/API matrix for STAFF_ORDER/INVENTORY/BUTTON and generic staff; align entry and nested route visibility while preserving server object scope; test each allowed/denied path. Support: Tran Tan Phat."
     ],
     [
       "SR-05",
@@ -47,23 +47,23 @@
     [
       "SR-06",
       "Planned",
-      "All workflow owners; coordinated by Nguyen Van Thanh",
+      "Nguyen Van Thanh",
       "04/11/2026",
-      "Review the complete state/guard and invalid-transition inventory, remove conceptual states from persisted-enum counts and reconcile the fixed F/W/T/N and per-owner totals for the actual Review2 commitment."
+      "Review the complete state/guard and invalid-transition inventory, remove conceptual states from persisted-enum counts and reconcile the fixed F/W/T/N and per-owner totals for the actual Review2 commitment. Support: All workflow owners."
     ],
     [
       "SR-07",
       "Planned",
-      "Nguyen Van Thanh / all workflow owners",
+      "Nguyen Van Thanh",
       "04/11/2026",
-      "Review all 23 NFRs, actual recovery facilities and a compatible coverage runner; retain explicit unmeasured states and propose feasible measurement dates. Measurements before Defense follow actual agreed milestones."
+      "Review all 23 NFRs, actual recovery facilities and a compatible coverage runner; retain explicit unmeasured states and propose feasible measurement dates. Measurements before Defense follow actual agreed milestones. Support: All workflow owners."
     ],
     [
       "SR-08",
       "Planned",
-      "Le Ho Gia Bao / Truong Quang Tan Tai",
+      "Le Ho Gia Bao",
       "04/11/2026",
-      "Remove or label illustrative infrastructure/current/latency claims; retain any later real measurement with setup, sample and firmware/deployment revision."
+      "Remove or label illustrative infrastructure/current/latency claims; retain any later real measurement with setup, sample and firmware/deployment revision. Support: Truong Quang Tan Tai."
     ],
     [
       "SR-09",
@@ -75,9 +75,9 @@
     [
       "SR-10",
       "Planned",
-      "Le Ho Gia Bao / Tran Tan Phat; each demo owner",
+      "Tran Tan Phat",
       "04/11/2026",
-      "Capture actual Web/Worker/Render build IDs, migration/provider modes, readiness and authorized repeatable workflow/rollback evidence. Existing smoke checks are retained at their observed scope only."
+      "Capture actual Web/Worker/Render build IDs, migration/provider modes, readiness and authorized repeatable workflow/rollback evidence. Existing smoke checks are retained at their observed scope only. Support: Le Ho Gia Bao and each demo owner."
     ]
   ],
   "input_manifest": {

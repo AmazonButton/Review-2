@@ -1,0 +1,271 @@
+%% Generated from prisma/schema.prisma at 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+erDiagram
+    User ||--o{ Store : "owner [ownerUserId]"
+    Store ||--o{ StoreStaff : "store [storeId]"
+    User ||--o{ StoreStaff : "user [userId]"
+    Role ||--o{ StoreStaff : "role [roleId]"
+    User ||--o| CustomerProfile : "user [userId]"
+    CustomerProfile ||--o{ CustomerAddress : "customer [customerId]"
+    Store ||--o{ StoreCustomer : "store [storeId]"
+    CustomerProfile ||--o{ StoreCustomer : "customer [customerId]"
+    Store ||--o{ Category : "store [storeId]"
+    Category o|--o{ Category : "parentCategory [storeId,parentCategoryId]"
+    Store ||--o{ Product : "store [storeId]"
+    Category o|--o{ Product : "category [storeId,categoryId]"
+    Product ||--o{ ProductPriceHistory : "product [productId]"
+    User o|--o{ ProductPriceHistory : "changedByUser [changedByUserId]"
+    Product ||--o{ ProductDiscount : "product [productId]"
+    Store ||--o{ Inventory : "store [storeId]"
+    Product ||--o| Inventory : "product [productId]"
+    Store ||--o{ IoTButton : "store [storeId]"
+    CustomerProfile o|--o{ IoTButton : "customer [customerId]"
+    CustomerAddress o|--o{ IoTButton : "address [customerId,addressId]"
+    DeviceTemplate o|--o{ IoTButton : "deployedTemplate [deployedTemplateId]"
+    ButtonRental o|--o{ IoTButton : "rental [rentalId]"
+    IoTButton ||--o{ ButtonProduct : "button [buttonId]"
+    Product ||--o{ ButtonProduct : "product [productId]"
+    Store ||--o{ Order : "store [storeId]"
+    CustomerProfile o|--o{ Order : "customer [customerId]"
+    IoTButton o|--o{ Order : "button [buttonId]"
+    User o|--o{ Order : "assignedDriver [assignedDriverId]"
+    Order ||--o{ OrderItem : "order [orderId]"
+    Product ||--o{ OrderItem : "product [productId]"
+    Order ||--o{ OrderStatusHistory : "order [orderId]"
+    User o|--o{ OrderStatusHistory : "changedByUser [changedByUserId]"
+    Order o|--o{ PaymentTransaction : "order [orderId]"
+    ButtonRental o|--o{ PaymentTransaction : "rental [rentalId]"
+    User ||--o{ RefreshToken : "user [userId]"
+    User ||--o{ UserFcmToken : "user [userId]"
+    Store o|--o{ DeviceTemplate : "store [storeId]"
+    Product o|--o{ DeviceTemplate : "defaultProduct [defaultProductId]"
+    Store ||--o{ StoreSubscription : "store [storeId]"
+    SubscriptionPlan ||--o{ StoreSubscription : "plan [planId]"
+    CustomerProfile ||--o{ ButtonRental : "customer [customerId]"
+    RentalPackage ||--o{ ButtonRental : "package [packageId]"
+    Store ||--o| StoreWallet : "store [storeId]"
+    StoreWallet ||--o{ WalletTransaction : "wallet [walletId]"
+    StoreWallet ||--o{ StoreWithdrawal : "wallet [walletId]"
+    User o|--o{ StoreWithdrawal : "approvedByUser [approvedByUserId]"
+    Store o|--o{ StoreWithdrawal : "store [storeId]"
+    StoreBankAccount o|--o{ StoreWithdrawal : "bankAccount [bankAccountId]"
+    Product ||--o{ ProductImage : "product [productId]"
+    User o|--o{ AuthOtp : "user [userId]"
+    IoTButton ||--o{ IotIdempotencyKey : "device [deviceId]"
+    Order o|--o{ IotIdempotencyKey : "order [orderId]"
+    Store ||--o{ SubscriptionIdempotencyKey : "store [storeId]"
+    StoreSubscription ||--o{ SubscriptionIdempotencyKey : "subscription [subscriptionId]"
+    User ||--o| DriverDuty : "driver [driverId]"
+    Store ||--o{ DriverDuty : "store [storeId]"
+    Store ||--o{ DriverShift : "store [storeId]"
+    User ||--o{ DriverShift : "driver [driverId]"
+    User o|--o{ DriverShift : "confirmedByUser [confirmedByUserId]"
+    User ||--o{ IdentityVerificationSession : "user [userId]"
+    IdentityVerificationSession o|--o{ DiditWebhookEvent : "session [diditSessionId]"
+    Store ||--o{ StoreBankAccount : "store [storeId]"
+    StoreBankAccount ||--o{ BankAccountVerificationTransaction : "bankAccount [bankAccountId]"
+    User ||--o{ Notification : "user [userId]"
+    User o|--o{ ApiIdempotencyKey : "user [userId]"
+    User ||--o{ UserAuthIdentity : "user [userId]"
+    Role {
+        BigInt roleId PK
+    }
+    User {
+        BigInt userId PK
+    }
+    Store {
+        BigInt storeId PK
+        BigInt ownerUserId FK
+    }
+    StoreStaff {
+        BigInt storeStaffId PK
+        BigInt storeId FK
+        BigInt userId FK
+        BigInt roleId FK
+    }
+    CustomerProfile {
+        BigInt customerId PK
+        BigInt userId FK
+    }
+    CustomerAddress {
+        BigInt addressId PK
+        BigInt customerId FK
+    }
+    StoreCustomer {
+        BigInt storeCustomerId PK
+        BigInt storeId FK
+        BigInt customerId FK
+    }
+    Category {
+        BigInt categoryId PK
+        BigInt storeId FK
+        BigInt parentCategoryId FK
+    }
+    Product {
+        BigInt productId PK
+        BigInt storeId FK
+        BigInt categoryId FK
+    }
+    ProductPriceHistory {
+        BigInt historyId PK
+        BigInt productId FK
+        BigInt changedByUserId FK
+    }
+    ProductDiscount {
+        BigInt discountId PK
+        BigInt productId FK
+    }
+    Inventory {
+        BigInt inventoryId PK
+        BigInt storeId FK
+        BigInt productId FK
+    }
+    IoTButton {
+        BigInt buttonId PK
+        BigInt storeId FK
+        BigInt customerId FK
+        BigInt addressId FK
+        BigInt deployedTemplateId FK
+        BigInt rentalId FK
+    }
+    ButtonProduct {
+        BigInt buttonProductId PK
+        BigInt buttonId FK
+        BigInt productId FK
+    }
+    Order {
+        BigInt orderId PK
+        BigInt storeId FK
+        BigInt customerId FK
+        BigInt buttonId FK
+        BigInt assignedDriverId FK
+    }
+    OrderItem {
+        BigInt orderItemId PK
+        BigInt orderId FK
+        BigInt productId FK
+    }
+    OrderStatusHistory {
+        BigInt historyId PK
+        BigInt orderId FK
+        BigInt changedByUserId FK
+    }
+    PaymentTransaction {
+        BigInt paymentTransactionId PK
+        BigInt orderId FK
+        BigInt rentalId FK
+    }
+    RefreshToken {
+        BigInt id PK
+        BigInt userId FK
+    }
+    UserFcmToken {
+        BigInt id PK
+        BigInt userId FK
+    }
+    DeviceTemplate {
+        BigInt templateId PK
+        BigInt storeId FK
+        BigInt defaultProductId FK
+    }
+    SubscriptionPlan {
+        BigInt planId PK
+    }
+    StoreSubscription {
+        BigInt subscriptionId PK
+        BigInt storeId FK
+        BigInt planId FK
+    }
+    RentalPackage {
+        BigInt packageId PK
+    }
+    ButtonRental {
+        BigInt rentalId PK
+        BigInt customerId FK
+        BigInt packageId FK
+    }
+    StoreWallet {
+        BigInt walletId PK
+        BigInt storeId FK
+    }
+    WalletTransaction {
+        BigInt transactionId PK
+        BigInt walletId FK
+    }
+    StoreWithdrawal {
+        BigInt withdrawalId PK
+        BigInt walletId FK
+        BigInt approvedByUserId FK
+        BigInt storeId FK
+        BigInt bankAccountId FK
+    }
+    ProductImage {
+        BigInt imageId PK
+        BigInt productId FK
+    }
+    PairingToken {
+        BigInt id PK
+    }
+    RevokedToken {
+        BigInt id PK
+    }
+    AuthOtp {
+        BigInt id PK
+        BigInt userId FK
+    }
+    IotIdempotencyKey {
+        BigInt id PK
+        BigInt deviceId FK
+        BigInt orderId FK
+    }
+    DeviceNonce {
+    }
+    ProvisioningSession {
+        BigInt id PK
+    }
+    SubscriptionIdempotencyKey {
+        BigInt id PK
+        BigInt storeId FK
+        BigInt subscriptionId FK
+    }
+    DriverDuty {
+        BigInt driverDutyId PK
+        BigInt driverId FK
+        BigInt storeId FK
+    }
+    DriverShift {
+        BigInt shiftId PK
+        BigInt storeId FK
+        BigInt driverId FK
+        BigInt confirmedByUserId FK
+    }
+    IdentityVerificationSession {
+        BigInt id PK
+        BigInt userId FK
+    }
+    DiditWebhookEvent {
+        BigInt id PK
+        String diditSessionId FK
+    }
+    StoreBankAccount {
+        BigInt id PK
+        BigInt storeId FK
+    }
+    BankAccountVerificationTransaction {
+        BigInt id PK
+        BigInt bankAccountId FK
+    }
+    Notification {
+        BigInt notificationId PK
+        BigInt userId FK
+    }
+    ApiIdempotencyKey {
+        BigInt id PK
+        BigInt userId FK
+    }
+    DeadLetterJob {
+        String id PK
+    }
+    UserAuthIdentity {
+        String id PK
+        BigInt userId FK
+    }

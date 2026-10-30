@@ -1,0 +1,16 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% payments/payments.repository.ts; bank-verification/bank-verification.repository.ts and service.ts
+%% Diagram groups distinct entities for comparison; labels are not a single shared status enum. REFUND_PENDING is not proof a customer payment refund was executed. Account ownership verification and transaction refund status are separate.
+stateDiagram-v2
+    state "PaymentTransaction.PENDING" as PAY_PENDING
+    state "PaymentTransaction.PAID" as PAY_PAID
+    state "Cancelled/rejected order stays terminal; / order.paymentStatus -> REFUND_PENDING" as LATE
+    state "BankAccountVerificationTransaction.PENDING" as BANK_PENDING
+    state "Verification transaction VERIFIED / Bank account -> OWNERSHIP_VERIFIED" as VERIFIED
+    state "Verification transaction FAILED / EXPIRED / Ownership not newly granted" as BANK_FAIL
+    state "Verification refund tracking / REFUND_PENDING -> REFUNDED / Failure remains pending for retry" as REFUND
+    PAY_PENDING --> PAY_PAID: Accepted signed payment
+    PAY_PAID --> LATE: Late payment on cancelled/rejected order
+    BANK_PENDING --> VERIFIED: All evidence checks pass
+    BANK_PENDING --> BANK_FAIL: Mismatch / expiry
+    VERIFIED --> REFUND: Verification-transfer return flow

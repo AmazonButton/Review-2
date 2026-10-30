@@ -1,0 +1,18 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/devices/devices.service.ts; provisioning.repository.ts:154-175,367-412
+%% Expiry is a time guard, not necessarily a persisted EXPIRED enum. Ownership (customerId), device status, session status and pairing-token status are separate. No device acknowledgment or physical reset is proved by a database update.
+stateDiagram-v2
+    state "IoTButton.status ACTIVE" as DEVICE_ACTIVE
+    state "IoTButton.status INACTIVE" as DEVICE_INACTIVE
+    state "UNASSIGNED / Provisioning/reset ownership result" as UNASSIGNED
+    state "ProvisioningSession ACTIVE / Only unexpired session usable" as SESSION_ACTIVE
+    state "ProvisioningSession CLAIMED / Consumed under row lock" as SESSION_CLAIMED
+    state "PairingToken ACTIVE" as TOKEN_ACTIVE
+    state "PairingToken USED" as TOKEN_USED
+    state "PairingToken REVOKED" as TOKEN_REVOKED
+    DEVICE_ACTIVE --> DEVICE_INACTIVE: Authorized revoke/deactivate
+    DEVICE_INACTIVE --> DEVICE_ACTIVE: Authorized activation
+    DEVICE_ACTIVE --> UNASSIGNED: Provisioning/reset path; inspect selected route
+    SESSION_ACTIVE --> SESSION_CLAIMED: Atomic claim
+    TOKEN_ACTIVE --> TOKEN_USED: Atomic consumption
+    TOKEN_ACTIVE --> TOKEN_REVOKED: Revocation

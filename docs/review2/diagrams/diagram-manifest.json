@@ -1,0 +1,940 @@
+{
+  "baseline": "9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1",
+  "graphs": [
+    {
+      "key": "architecture",
+      "title": "Deployment and trust boundaries",
+      "nodes": [
+        [
+          "web",
+          "Web / Vercel\nbuttontdash.vercel.app",
+          200,
+          140
+        ],
+        [
+          "mobile",
+          "Flutter Mobile\nAPI base configured per build",
+          600,
+          140
+        ],
+        [
+          "proxy",
+          "API edge / Cloudflare Worker\nfragrant-mode-3a41.ptt24032004.workers.dev",
+          300,
+          280
+        ],
+        [
+          "api",
+          "NestJS / Render\nbackend-fae8.onrender.com",
+          400,
+          425
+        ],
+        [
+          "db",
+          "Supabase PostgreSQL\nPrisma + migrations",
+          150,
+          590
+        ],
+        [
+          "queue",
+          "Redis / workers / realtime\nProvider and runtime to record",
+          400,
+          590
+        ],
+        [
+          "providers",
+          "PayOS / identity / notification / media\nIndependent signed callback boundaries",
+          650,
+          590
+        ],
+        [
+          "device",
+          "ESP32 physical-device target\nAuthenticated device request",
+          650,
+          280
+        ]
+      ],
+      "edges": [
+        [
+          "web",
+          "proxy",
+          "/api/v1 rewrite"
+        ],
+        [
+          "mobile",
+          "proxy",
+          "Declared API base"
+        ],
+        [
+          "proxy",
+          "api",
+          "Intended origin; verify forwarding"
+        ],
+        [
+          "device",
+          "api",
+          "HMAC + freshness checks"
+        ],
+        [
+          "api",
+          "db",
+          "Server-only persistence"
+        ],
+        [
+          "api",
+          "queue",
+          "Scoped events/jobs"
+        ],
+        [
+          "api",
+          "providers",
+          "TLS / provider verification"
+        ]
+      ],
+      "reference": "frontend/vercel.json; backend/src/main.ts; team-declared URLs, 30 Oct 2026",
+      "kind": "architecture",
+      "note": "Edge-to-origin route, deployed revision and live availability are not independently verified. Device integration is a final-product target; Iteration 1 supplies research/drawings."
+    },
+    {
+      "key": "wf01-account",
+      "title": "WF01 - Resident access and own address",
+      "nodes": [
+        [
+          "start",
+          "Resident opens registration / sign-in",
+          240,
+          90
+        ],
+        [
+          "verify",
+          "API validates credentials / verified identity",
+          240,
+          195
+        ],
+        [
+          "ok",
+          "Identity accepted?",
+          240,
+          300
+        ],
+        [
+          "deny",
+          "Reject invalid/inactive credentials\nNo authenticated session",
+          610,
+          300
+        ],
+        [
+          "session",
+          "Issue server-derived session and role",
+          240,
+          405
+        ],
+        [
+          "address",
+          "Resident reads/creates own delivery address",
+          240,
+          510
+        ],
+        [
+          "scope",
+          "Ownership / input accepted?",
+          240,
+          615
+        ],
+        [
+          "foreign",
+          "Reject foreign/invalid address\nNo mutation or data disclosure",
+          610,
+          615
+        ],
+        [
+          "done",
+          "Own address persisted / selected\nSession and profile ready",
+          240,
+          720
+        ]
+      ],
+      "edges": [
+        [
+          "start",
+          "verify",
+          "Resident / identity provider"
+        ],
+        [
+          "verify",
+          "ok",
+          "AuthService"
+        ],
+        [
+          "ok",
+          "deny",
+          "No"
+        ],
+        [
+          "ok",
+          "session",
+          "Yes"
+        ],
+        [
+          "session",
+          "address",
+          "Authenticated customer"
+        ],
+        [
+          "address",
+          "scope",
+          "Address authorization"
+        ],
+        [
+          "scope",
+          "foreign",
+          "No"
+        ],
+        [
+          "scope",
+          "done",
+          "Yes"
+        ]
+      ],
+      "reference": "backend/src/auth/auth.service.ts; customer address service/controller; SRS FR01-04, FR08, FR34-35",
+      "kind": "activity",
+      "note": "Simplified workflow; account verification/reset have their own guarded subflows. Proposed owner: Nguyen Van Thanh; DS01a/DS01b. No manual execution is asserted."
+    },
+    {
+      "key": "wf02-order",
+      "title": "WF02 - Storefront order and customer cancellation",
+      "nodes": [
+        [
+          "start",
+          "Customer selects store, products and address",
+          240,
+          80
+        ],
+        [
+          "create",
+          "Server validates stock/price and creates COD order",
+          240,
+          185
+        ],
+        [
+          "choice",
+          "Cancel request?",
+          240,
+          290
+        ],
+        [
+          "cancel",
+          "Authenticate owner; lock order;\nrecheck PENDING/CONFIRMED and elapsed <120s",
+          610,
+          290
+        ],
+        [
+          "store",
+          "Authorized store confirms and prepares",
+          240,
+          400
+        ],
+        [
+          "result",
+          "Eligible cancellation?",
+          610,
+          405
+        ],
+        [
+          "delivery",
+          "Assigned driver ships and records proof / failure",
+          240,
+          520
+        ],
+        [
+          "reject",
+          "Reject expired/foreign/ineligible request\nOwner retry already CANCELLED is idempotent",
+          610,
+          520
+        ],
+        [
+          "done",
+          "Delivery accepted -> COMPLETED\nCustomer reads committed timeline",
+          240,
+          650
+        ],
+        [
+          "cancelled",
+          "CANCELLED; release eligible stock once\nCommit then publish scoped event",
+          610,
+          650
+        ]
+      ],
+      "edges": [
+        [
+          "start",
+          "create",
+          "Customer + storefront API"
+        ],
+        [
+          "create",
+          "choice",
+          "PENDING"
+        ],
+        [
+          "choice",
+          "store",
+          "No"
+        ],
+        [
+          "choice",
+          "cancel",
+          "Yes"
+        ],
+        [
+          "cancel",
+          "result",
+          "Fresh DB clock after row lock"
+        ],
+        [
+          "result",
+          "reject",
+          "No"
+        ],
+        [
+          "result",
+          "cancelled",
+          "Yes"
+        ],
+        [
+          "store",
+          "delivery",
+          "Allowed transition + roles"
+        ],
+        [
+          "delivery",
+          "done",
+          "Success path"
+        ]
+      ],
+      "reference": "backend/src/orders/orders.service.ts; orders.repository.ts; dto/update-order-status.dto.ts",
+      "kind": "activity",
+      "note": "All ordering channels use the same customer deadline. Exactly 120 seconds is expired. Delivery failure/retry/rejection branches are in the order state graph. Proposed owner: Le Ho Gia Bao; DS02a/DS02b."
+    },
+    {
+      "key": "wf03-finance",
+      "title": "WF03 - Verified collection and store finance",
+      "nodes": [
+        [
+          "start",
+          "Customer / store operator selects financial operation",
+          400,
+          75
+        ],
+        [
+          "pay",
+          "Customer requests PayOS collection\nServer validates order and creates link",
+          200,
+          200
+        ],
+        [
+          "bank",
+          "Store operator registers bank account\nStarts ownership-verification request",
+          600,
+          200
+        ],
+        [
+          "callback",
+          "PayOS callback: verify signature,\nassociation, amount and idempotency",
+          200,
+          335
+        ],
+        [
+          "verified",
+          "Bank callback: verify sender/destination,\nreference, amount and expiry",
+          600,
+          335
+        ],
+        [
+          "paid",
+          "Transaction PAID; order update or\nREFUND_PENDING reconciliation as eligible",
+          200,
+          470
+        ],
+        [
+          "gate",
+          "OWNERSHIP_VERIFIED + authorized role\nSufficient wallet funds?",
+          600,
+          470
+        ],
+        [
+          "withdraw",
+          "Freeze/debit under transaction; create PENDING\nAtomically claim PROCESSING before payout",
+          600,
+          605
+        ],
+        [
+          "settle",
+          "Verified success -> SUCCEEDED\nConfirmed failure -> guarded compensation\nUnknown timeout -> remain PROCESSING",
+          600,
+          735
+        ],
+        [
+          "reject",
+          "Invalid/repeated evidence: reject or\nreturn prior result without duplicate effects",
+          200,
+          650
+        ]
+      ],
+      "edges": [
+        [
+          "start",
+          "pay",
+          "Collection branch"
+        ],
+        [
+          "start",
+          "bank",
+          "Banking branch"
+        ],
+        [
+          "pay",
+          "callback",
+          "Provider event"
+        ],
+        [
+          "callback",
+          "paid",
+          "Accepted"
+        ],
+        [
+          "callback",
+          "reject",
+          "Invalid / duplicate"
+        ],
+        [
+          "bank",
+          "verified",
+          "Provider event"
+        ],
+        [
+          "verified",
+          "gate",
+          "Valid ownership evidence"
+        ],
+        [
+          "gate",
+          "withdraw",
+          "Yes"
+        ],
+        [
+          "gate",
+          "reject",
+          "No"
+        ],
+        [
+          "withdraw",
+          "settle",
+          "Provider callback / reconciliation"
+        ]
+      ],
+      "reference": "payments/payments.repository.ts; bank-verification/bank-verification.repository.ts; store-wallet/store-wallet.service.ts",
+      "kind": "activity",
+      "note": "Branches are related financial operations, not one mandatory payment-before-bank sequence. Collection does not immediately credit the store wallet. Proposed owner: Tran Tan Phat; DS03a/DS03b; team reports implementation complete, live acceptance not asserted."
+    },
+    {
+      "key": "wf04-device",
+      "title": "WF04 - Provisioning to physical ordering (target)",
+      "nodes": [
+        [
+          "start",
+          "Resident scans device code + valid pairing token",
+          240,
+          85
+        ],
+        [
+          "claim",
+          "Create authorized provisioning session;\nconfigure BLE/Wi-Fi and claim owned device",
+          240,
+          195
+        ],
+        [
+          "config",
+          "Assign supported product / own address",
+          240,
+          305
+        ],
+        [
+          "press",
+          "Resident presses physical ESP32 button",
+          240,
+          415
+        ],
+        [
+          "guard",
+          "Signature, freshness, mapping,\nidempotency and stock accepted?",
+          240,
+          525
+        ],
+        [
+          "reject",
+          "Reject invalid/replayed request;\nrecoverable connectivity failure / controlled retry",
+          610,
+          525
+        ],
+        [
+          "order",
+          "One accepted PENDING order\nScoped store/customer notification",
+          240,
+          645
+        ],
+        [
+          "done",
+          "Store processes; resident tracks order",
+          240,
+          745
+        ]
+      ],
+      "edges": [
+        [
+          "start",
+          "claim",
+          "Resident + device"
+        ],
+        [
+          "claim",
+          "config",
+          "Ownership verified"
+        ],
+        [
+          "config",
+          "press",
+          "Configured physical target"
+        ],
+        [
+          "press",
+          "guard",
+          "Device -> API"
+        ],
+        [
+          "guard",
+          "reject",
+          "No"
+        ],
+        [
+          "guard",
+          "order",
+          "Yes"
+        ],
+        [
+          "order",
+          "done",
+          "Committed result"
+        ]
+      ],
+      "reference": "devices/provisioning.service.ts; devices.service.ts; iot/iot.service.ts; order persistence",
+      "kind": "activity",
+      "note": "Proposed owner: Truong Quang Tan Tai; DS04a/DS04b. This is a final-product target. Iteration 1 research/drawings or simulated API requests do not prove physical provisioning/ordering acceptance."
+    },
+    {
+      "key": "cancellation-120",
+      "title": "Customer cancellation: atomic decision flow",
+      "nodes": [
+        [
+          "request",
+          "Authenticated customer requests cancellation",
+          240,
+          80
+        ],
+        [
+          "own",
+          "Order exists and customer owns it?",
+          240,
+          190
+        ],
+        [
+          "deny",
+          "Reject missing/foreign resource\nDo not expose order details",
+          610,
+          190
+        ],
+        [
+          "prior",
+          "Already CANCELLED?",
+          240,
+          300
+        ],
+        [
+          "idem",
+          "Return prior owned result\nNo repeated stock mutation",
+          610,
+          300
+        ],
+        [
+          "lock",
+          "Precheck -> transaction -> SELECT FOR UPDATE\nRead fresh database clock after lock",
+          240,
+          420
+        ],
+        [
+          "guard",
+          "Current status PENDING/CONFIRMED\nand 0 <= elapsed <120 seconds?",
+          240,
+          550
+        ],
+        [
+          "expire",
+          "Reject current status / expired deadline\nNo inventory mutation",
+          610,
+          550
+        ],
+        [
+          "commit",
+          "Release eligible stock once; write CANCELLED\nCommit then notify authorized rooms",
+          240,
+          700
+        ]
+      ],
+      "edges": [
+        [
+          "request",
+          "own",
+          "OrdersService"
+        ],
+        [
+          "own",
+          "deny",
+          "No"
+        ],
+        [
+          "own",
+          "prior",
+          "Yes"
+        ],
+        [
+          "prior",
+          "idem",
+          "Yes"
+        ],
+        [
+          "prior",
+          "lock",
+          "No"
+        ],
+        [
+          "lock",
+          "guard",
+          "OrdersRepository"
+        ],
+        [
+          "guard",
+          "expire",
+          "No"
+        ],
+        [
+          "guard",
+          "commit",
+          "Yes"
+        ]
+      ],
+      "reference": "orders/orders.service.ts and orders/orders.repository.ts; review2 cancellation regression tests",
+      "kind": "activity",
+      "note": "Customer path only. Exactly 120 seconds is rejected. Privileged operational cancellation uses separate authorization and is not granted by this diagram."
+    },
+    {
+      "key": "order-state",
+      "title": "Order: declared generic transition graph",
+      "nodes": [
+        [
+          "PENDING",
+          "PENDING",
+          210,
+          90
+        ],
+        [
+          "CONFIRMED",
+          "CONFIRMED",
+          210,
+          190
+        ],
+        [
+          "PREPARING",
+          "PREPARING",
+          210,
+          290
+        ],
+        [
+          "READY_FOR_DELIVERY",
+          "READY_FOR_DELIVERY",
+          210,
+          390
+        ],
+        [
+          "SHIPPING",
+          "SHIPPING",
+          210,
+          490
+        ],
+        [
+          "DELIVERED",
+          "DELIVERED",
+          210,
+          590
+        ],
+        [
+          "COMPLETED",
+          "COMPLETED",
+          210,
+          690
+        ],
+        [
+          "CANCELLED",
+          "CANCELLED",
+          630,
+          390
+        ],
+        [
+          "REJECTED",
+          "REJECTED",
+          630,
+          150
+        ],
+        [
+          "DELIVERY_FAILED",
+          "DELIVERY_FAILED",
+          630,
+          600
+        ]
+      ],
+      "edges": [
+        [
+          "PENDING",
+          "CONFIRMED",
+          ""
+        ],
+        [
+          "PENDING",
+          "CANCELLED",
+          ""
+        ],
+        [
+          "PENDING",
+          "REJECTED",
+          ""
+        ],
+        [
+          "CONFIRMED",
+          "PREPARING",
+          ""
+        ],
+        [
+          "CONFIRMED",
+          "CANCELLED",
+          ""
+        ],
+        [
+          "CONFIRMED",
+          "REJECTED",
+          ""
+        ],
+        [
+          "PREPARING",
+          "READY_FOR_DELIVERY",
+          ""
+        ],
+        [
+          "PREPARING",
+          "CANCELLED",
+          ""
+        ],
+        [
+          "READY_FOR_DELIVERY",
+          "SHIPPING",
+          ""
+        ],
+        [
+          "READY_FOR_DELIVERY",
+          "CANCELLED",
+          ""
+        ],
+        [
+          "SHIPPING",
+          "DELIVERED",
+          ""
+        ],
+        [
+          "SHIPPING",
+          "DELIVERY_FAILED",
+          ""
+        ],
+        [
+          "SHIPPING",
+          "CANCELLED",
+          ""
+        ],
+        [
+          "DELIVERY_FAILED",
+          "SHIPPING",
+          ""
+        ],
+        [
+          "DELIVERY_FAILED",
+          "CANCELLED",
+          ""
+        ],
+        [
+          "DELIVERED",
+          "COMPLETED",
+          ""
+        ]
+      ],
+      "reference": "backend/src/orders/dto/update-order-status.dto.ts: ALLOWED_ORDER_TRANSITIONS",
+      "kind": "state",
+      "note": "All 16 declared edges are shown. Route/service roles and guards still apply. Customer cancellation is restricted to own PENDING/CONFIRMED orders before 120s; later-state CANCELLED edges are not customer permissions."
+    },
+    {
+      "key": "withdrawal-state",
+      "title": "StoreWithdrawal: principal implemented paths",
+      "nodes": [
+        [
+          "PENDING",
+          "PENDING\nFunds reserved by creation transaction",
+          240,
+          120
+        ],
+        [
+          "PROCESSING",
+          "PROCESSING\nConditional claim before PayOS call",
+          240,
+          300
+        ],
+        [
+          "SUCCEEDED",
+          "SUCCEEDED\nAccepted provider success",
+          240,
+          560
+        ],
+        [
+          "FAILED",
+          "FAILED\nConfirmed failure + guarded refund",
+          610,
+          560
+        ],
+        [
+          "UNKNOWN",
+          "Unknown provider outcome\nKeep PROCESSING; reconcile later",
+          610,
+          300
+        ]
+      ],
+      "edges": [
+        [
+          "PENDING",
+          "PROCESSING",
+          "Atomic claim"
+        ],
+        [
+          "PROCESSING",
+          "SUCCEEDED",
+          "Verified success / reconciliation"
+        ],
+        [
+          "PROCESSING",
+          "FAILED",
+          "Confirmed failure"
+        ],
+        [
+          "PROCESSING",
+          "UNKNOWN",
+          "Timeout / uncertain result"
+        ],
+        [
+          "UNKNOWN",
+          "PROCESSING",
+          "Reconcile; no immediate refund"
+        ]
+      ],
+      "reference": "backend/src/store-wallet/store-wallet.service.ts: triggerPayosPayout, refundFailedWithdrawal, webhook/reconciliation",
+      "kind": "state",
+      "note": "UNKNOWN is an explanatory outcome, not a persisted status. SUCCEEDED/FAILED are the principal terminal outcomes shown. Legacy FAILED_CONFIRMED guards also exist; this is not a complete transition inventory or proof of all replay safety."
+    },
+    {
+      "key": "bank-payment-state",
+      "title": "Payment and bank ownership: separate state domains",
+      "nodes": [
+        [
+          "PAY_PENDING",
+          "PaymentTransaction.PENDING",
+          210,
+          120
+        ],
+        [
+          "PAY_PAID",
+          "PaymentTransaction.PAID",
+          210,
+          300
+        ],
+        [
+          "LATE",
+          "Cancelled/rejected order stays terminal;\norder.paymentStatus -> REFUND_PENDING",
+          210,
+          480
+        ],
+        [
+          "BANK_PENDING",
+          "BankAccountVerificationTransaction.PENDING",
+          610,
+          120
+        ],
+        [
+          "VERIFIED",
+          "Verification transaction VERIFIED\nBank account -> OWNERSHIP_VERIFIED",
+          610,
+          300
+        ],
+        [
+          "BANK_FAIL",
+          "Verification transaction FAILED / EXPIRED\nOwnership not newly granted",
+          610,
+          480
+        ],
+        [
+          "REFUND",
+          "Verification refund tracking\nREFUND_PENDING -> REFUNDED\nFailure remains pending for retry",
+          610,
+          680
+        ]
+      ],
+      "edges": [
+        [
+          "PAY_PENDING",
+          "PAY_PAID",
+          "Accepted signed payment"
+        ],
+        [
+          "PAY_PAID",
+          "LATE",
+          "Late payment on cancelled/rejected order"
+        ],
+        [
+          "BANK_PENDING",
+          "VERIFIED",
+          "All evidence checks pass"
+        ],
+        [
+          "BANK_PENDING",
+          "BANK_FAIL",
+          "Mismatch / expiry"
+        ],
+        [
+          "VERIFIED",
+          "REFUND",
+          "Verification-transfer return flow"
+        ]
+      ],
+      "reference": "payments/payments.repository.ts; bank-verification/bank-verification.repository.ts and service.ts",
+      "kind": "state",
+      "note": "Diagram groups distinct entities for comparison; labels are not a single shared status enum. REFUND_PENDING is not proof a customer payment refund was executed. Account ownership verification and transaction refund status are separate."
+    }
+  ],
+  "logical_erd": {
+    "models": 46,
+    "relations": 66,
+    "scope": "Prisma model relation source; migration-only constraints/triggers remain in migrations"
+  }
+}

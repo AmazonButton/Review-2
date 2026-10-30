@@ -1,0 +1,14 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/rentals/rentals.service.ts:92,198-221; rentals.repository.ts:64-75,132
+%% Return request can be written after ownership lookup without an explicit current-state precondition. A complete RETURN_REQUESTED -> TERMINATED/CANCELLED business path is not established by the shown service; these recognized statuses are shown without invented transitions. Flag and disposition this gap.
+stateDiagram-v2
+    state "PENDING_PAYMENT" as PENDING_PAYMENT
+    state "PAID" as PAID
+    state "ACTIVE" as ACTIVE
+    state "RETURN_REQUESTED / Owner request; current-state guard absent" as RETURN_REQUESTED
+    state "TERMINATED / CANCELLED / Recognized by extension guard" as TERMINATED
+    PENDING_PAYMENT --> PAID: Accepted rental payment; verify selected handler
+    PAID --> ACTIVE: activateRental accepts PAID
+    ACTIVE --> ACTIVE: Idempotent activation
+    PENDING_PAYMENT --> ACTIVE: NODE_ENV=test only
+    ACTIVE --> RETURN_REQUESTED: Owner request; other origins not excluded

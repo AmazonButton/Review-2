@@ -1,0 +1,14 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/store-wallet/store-wallet.service.ts: triggerPayosPayout, refundFailedWithdrawal, webhook/reconciliation
+%% UNKNOWN is an explanatory outcome, not a persisted status. SUCCEEDED/FAILED are the principal terminal outcomes shown. Legacy FAILED_CONFIRMED guards also exist; this is not a complete transition inventory or proof of all replay safety.
+stateDiagram-v2
+    state "PENDING / Funds reserved by creation transaction" as PENDING
+    state "PROCESSING / Conditional claim before PayOS call" as PROCESSING
+    state "SUCCEEDED / Accepted provider success" as SUCCEEDED
+    state "FAILED / Confirmed failure + guarded refund" as FAILED
+    state "Unknown provider outcome / Keep PROCESSING; reconcile later" as UNKNOWN
+    PENDING --> PROCESSING: Atomic claim
+    PROCESSING --> SUCCEEDED: Verified success / reconciliation
+    PROCESSING --> FAILED: Confirmed failure
+    PROCESSING --> UNKNOWN: Timeout / uncertain result
+    UNKNOWN --> PROCESSING: Reconcile; no immediate refund

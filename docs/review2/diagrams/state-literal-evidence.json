@@ -1,0 +1,3254 @@
+[
+  {
+    "path": "backend/src/app.controller.ts",
+    "line": 33,
+    "literals": [
+      "UNREADY"
+    ],
+    "excerpt": "status: 'UNREADY',"
+  },
+  {
+    "path": "backend/src/app.controller.ts",
+    "line": 70,
+    "literals": [
+      "UNREADY"
+    ],
+    "excerpt": "status: 'UNREADY',"
+  },
+  {
+    "path": "backend/src/app.controller.ts",
+    "line": 78,
+    "literals": [
+      "READY"
+    ],
+    "excerpt": "status: 'READY',"
+  },
+  {
+    "path": "backend/src/app.controller.ts",
+    "line": 98,
+    "literals": [
+      "CONNECTED",
+      "DEGRADED"
+    ],
+    "excerpt": "status: dbStatus === 'CONNECTED' ? 'OK' : 'DEGRADED',"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 20,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "where: { status: 'INACTIVE' },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 51,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "data: { status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 55,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "data: { status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 64,
+    "literals": [
+      "SUSPENDED"
+    ],
+    "excerpt": "data: { status: 'SUSPENDED' },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 81,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "this.prisma.store.count({ where: { status: 'ACTIVE' } }),"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 84,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "this.prisma.ioTButton.count({ where: { status: 'ACTIVE' } }),"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 87,
+    "literals": [
+      "DELIVERED",
+      "COMPLETED"
+    ],
+    "excerpt": "where: { orderStatus: { in: ['DELIVERED', 'COMPLETED'] } },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 90,
+    "literals": [
+      "CANCELLED",
+      "REJECTED"
+    ],
+    "excerpt": "where: { orderStatus: { notIn: ['CANCELLED', 'REJECTED'] } },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 220,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "const isActive = data.isActive ?? (data.status === 'ACTIVE' || data.status === undefined);"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 313,
+    "literals": [
+      "REJECTED"
+    ],
+    "excerpt": "status: 'REJECTED',"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 325,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "SET status = 'PROCESSING', updated_at = NOW()"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 326,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "WHERE withdrawal_id = ${withdrawalId} AND status = 'PENDING'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 350,
+    "literals": [
+      "PENDING",
+      "PROCESSING"
+    ],
+    "excerpt": "if (!['PENDING', 'PROCESSING'].includes(lockedWithdrawal.status)) {"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 410,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "status: 'FAILED',"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 447,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE s.status = 'ACTIVE')::int AS active,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 448,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE s.status = 'PENDING')::int AS pending,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 449,
+    "literals": [
+      "SUSPENDED"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE s.status = 'SUSPENDED')::int AS suspended"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 468,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE ss.user_id = u.user_id AND ss.status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 474,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE ss.user_id = u.user_id AND ss.status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 477,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE u.status = 'ACTIVE')::int AS active_users,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 478,
+    "literals": [
+      "SUSPENDED",
+      "INACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE u.status IN ('SUSPENDED', 'INACTIVE'))::int AS suspended_users"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 514,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "WHERE pt.status = 'PAID'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 523,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE pt.status = 'PENDING')::int AS pending,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 524,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE pt.status = 'PAID')::int AS succeeded,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 525,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE pt.status = 'FAILED')::int AS failed"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 538,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE b.status = 'ACTIVE')::int AS active,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 539,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE b.status <> 'ACTIVE')::int AS inactive,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 553,
+    "literals": [
+      "PENDING_PAYMENT"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE br.status = 'PENDING_PAYMENT')::int AS pending_payment,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 554,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE br.status = 'ACTIVE')::int AS active,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 555,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE br.status = 'ACTIVE' AND br.end_date <= NOW() + INTERVAL '7 days')::int AS expiring_soon,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 556,
+    "literals": [
+      "EXPIRED",
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE br.status = 'EXPIRED' OR (br.status = 'ACTIVE' AND br.end_date < NOW()))::int AS expired"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 567,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE sw.status = 'PENDING')::int AS pending,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 568,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE sw.status = 'PROCESSING')::int AS processing,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 569,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE sw.status = 'COMPLETED')::int AS completed,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 570,
+    "literals": [
+      "REJECTED"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE sw.status = 'REJECTED')::int AS rejected,"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 571,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE sw.status = 'FAILED')::int AS failed"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 577,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "(SELECT COUNT(*)::int FROM identity_verification_sessions iv WHERE iv.status = 'PENDING') AS pending_kyc"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 582,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "WHERE dlj.status = 'DEAD'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 762,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE br.status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 831,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "where: { status: 'PENDING' },"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 851,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "WHERE sw.status = 'FAILED'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 865,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "WHERE dlj.status = 'DEAD'"
+  },
+  {
+    "path": "backend/src/admin/admin.repository.ts",
+    "line": 928,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "(SELECT COUNT(*)::int FROM iot_button b WHERE b.store_id = s.store_id AND b.status = 'ACTIVE') AS active_buttons"
+  },
+  {
+    "path": "backend/src/admin/admin.service.ts",
+    "line": 124,
+    "literals": [
+      "ACTIVE",
+      "INACTIVE",
+      "ACTIVE"
+    ],
+    "excerpt": "const nextStatus = status || (user.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE');"
+  },
+  {
+    "path": "backend/src/admin/admin.service.ts",
+    "line": 217,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/admin/admin.service.ts",
+    "line": 270,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "if (withdrawal.status !== 'PENDING') {"
+  },
+  {
+    "path": "backend/src/admin/admin.service.ts",
+    "line": 342,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "status: 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 52,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "const paidConditions = [Prisma.sql`pt.status = 'PAID'`, ...orderConditions];"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 113,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE b.status = 'ACTIVE')::int AS active_devices,"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 114,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE b.status <> 'ACTIVE')::int AS inactive_devices,"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 255,
+    "literals": [
+      "ONLINE"
+    ],
+    "excerpt": "(SELECT COUNT(*)::int FROM driver_duties dd WHERE dd.status = 'ONLINE' ${storeId ? Prisma.sql`AND dd.store_id = ${storeId}` : Prisma.empty}) AS available_drivers,"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 256,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "(SELECT COUNT(*)::int FROM driver_shifts ds WHERE ds.status = 'OPEN' ${storeId ? Prisma.sql`AND ds.store_id = ${storeId}` : Prisma.empty}) AS open_shifts,"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 270,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "WHERE sw.status = 'PENDING' AND sw.store_id = ${storeId}"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 686,
+    "literals": [
+      "OUT_OF_STOCK",
+      "LOW_STOCK",
+      "HEALTHY"
+    ],
+    "excerpt": "status: toNumber(r.quantity_on_hand) === 0 ? 'OUT_OF_STOCK' : toNumber(r.quantity_on_hand) <= toNumber(r.min_stock_alert) ? 'LOW_STOCK' : 'HEALTHY',"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 940,
+    "literals": [
+      "ONLINE"
+    ],
+    "excerpt": "(SELECT COUNT(*)::int FROM driver_duties dd WHERE dd.store_id = ${storeId} AND dd.status = 'ONLINE') AS online_drivers,"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 941,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "(SELECT COUNT(*)::int FROM driver_shifts ds WHERE ds.store_id = ${storeId} AND ds.status = 'OPEN') AS open_shifts,"
+  },
+  {
+    "path": "backend/src/analytics/analytics.repository.ts",
+    "line": 1070,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "AND ss.status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 54,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 234,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 249,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 281,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 300,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 314,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 395,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 435,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 769,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 780,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.repository.ts",
+    "line": 791,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "storeStaffs: { where: { status: 'ACTIVE' }, include: { role: true, store: true } },"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 141,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 164,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 491,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 502,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 525,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 568,
+    "literals": [
+      "PENDING_VERIFICATION"
+    ],
+    "excerpt": "if (user.status === 'PENDING_VERIFICATION') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 570,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "user.status = 'ACTIVE';"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 573,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (user.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 657,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (user.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 824,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (!user || user.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 965,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (user && user.status === 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 1043,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (!user || user.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 1121,
+    "literals": [
+      "PENDING_VERIFICATION"
+    ],
+    "excerpt": "if (user && user.status === 'PENDING_VERIFICATION') {"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 1309,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/auth.service.ts",
+    "line": 1403,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (user.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/jwt.strategy.ts",
+    "line": 61,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (!user || user.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/auth/jwt.strategy.ts",
+    "line": 98,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "(s: any) => s.storeId.toString() === payload.storeId.toString() && s.status === 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/auth/jwt.strategy.ts",
+    "line": 100,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": ": user.storeStaffs.find((s: any) => s.status === 'ACTIVE');"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 41,
+    "literals": [
+      "OWNERSHIP_VERIFIED"
+    ],
+    "excerpt": "verificationStatus: 'OWNERSHIP_VERIFIED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 85,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "verificationStatus: params.verificationStatus || 'PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 109,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 172,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 175,
+    "literals": [
+      "EXPIRED"
+    ],
+    "excerpt": "status: 'EXPIRED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 288,
+    "literals": [
+      "VERIFIED"
+    ],
+    "excerpt": "lockedTx.status === 'VERIFIED' ||"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 289,
+    "literals": [
+      "REFUND_PENDING"
+    ],
+    "excerpt": "lockedTx.status === 'REFUND_PENDING' ||"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 290,
+    "literals": [
+      "REFUNDED"
+    ],
+    "excerpt": "lockedTx.status === 'REFUNDED'"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 305,
+    "literals": [
+      "EXPIRED"
+    ],
+    "excerpt": "SET status = 'EXPIRED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 313,
+    "literals": [
+      "EXPIRED",
+      "EXPIRED"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'EXPIRED', failure_reason: 'EXPIRED' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 326,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 336,
+    "literals": [
+      "FAILED",
+      "AMOUNT_MISMATCH"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'AMOUNT_MISMATCH' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 354,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 364,
+    "literals": [
+      "FAILED",
+      "DESTINATION_ACCOUNT_UNVERIFIABLE"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'DESTINATION_ACCOUNT_UNVERIFIABLE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 374,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 384,
+    "literals": [
+      "FAILED",
+      "DESTINATION_BANK_UNVERIFIABLE"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'DESTINATION_BANK_UNVERIFIABLE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 396,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 406,
+    "literals": [
+      "FAILED",
+      "DESTINATION_ACCOUNT_MISMATCH"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'DESTINATION_ACCOUNT_MISMATCH' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 418,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 428,
+    "literals": [
+      "FAILED",
+      "DESTINATION_BANK_MISMATCH"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'DESTINATION_BANK_MISMATCH' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 441,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 451,
+    "literals": [
+      "FAILED",
+      "SENDER_ACCOUNT_UNVERIFIABLE"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'SENDER_ACCOUNT_UNVERIFIABLE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 461,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 471,
+    "literals": [
+      "FAILED",
+      "SENDER_BANK_UNVERIFIABLE"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'SENDER_BANK_UNVERIFIABLE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 488,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 498,
+    "literals": [
+      "FAILED",
+      "SENDER_ACCOUNT_UNVERIFIABLE"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'SENDER_ACCOUNT_UNVERIFIABLE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 508,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 518,
+    "literals": [
+      "FAILED",
+      "SENDER_ACCOUNT_UNVERIFIABLE"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'SENDER_ACCOUNT_UNVERIFIABLE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 528,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 538,
+    "literals": [
+      "FAILED",
+      "SENDER_ACCOUNT_MISMATCH"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'SENDER_ACCOUNT_MISMATCH' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 550,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 560,
+    "literals": [
+      "FAILED",
+      "SENDER_BANK_MISMATCH"
+    ],
+    "excerpt": "transaction: { ...lockedTx, status: 'FAILED', failure_reason: 'SENDER_BANK_MISMATCH' },"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 575,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 589,
+    "literals": [
+      "VERIFIED"
+    ],
+    "excerpt": "SET status = 'VERIFIED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.repository.ts",
+    "line": 621,
+    "literals": [
+      "VERIFIED"
+    ],
+    "excerpt": "status: 'VERIFIED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 127,
+    "literals": [
+      "SUSPENDED",
+      "REVOKED"
+    ],
+    "excerpt": "if (existing && (existing.verificationStatus === 'SUSPENDED' || existing.verificationStatus === 'REVOKED')) {"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 148,
+    "literals": [
+      "OWNERSHIP_VERIFIED",
+      "OWNERSHIP_VERIFIED",
+      "PENDING"
+    ],
+    "excerpt": "verificationStatus: existing?.verificationStatus === 'OWNERSHIP_VERIFIED' ? 'OWNERSHIP_VERIFIED' : 'PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 228,
+    "literals": [
+      "OWNERSHIP_VERIFIED"
+    ],
+    "excerpt": "if (account.verificationStatus !== 'OWNERSHIP_VERIFIED') {"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 259,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 289,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "if (tx.status !== 'PENDING') {"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 436,
+    "literals": [
+      "REFUND_PENDING"
+    ],
+    "excerpt": "status: 'REFUND_PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 453,
+    "literals": [
+      "SUCCESS"
+    ],
+    "excerpt": "if (refundResult.status === 'SUCCESS') {"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 456,
+    "literals": [
+      "REFUNDED"
+    ],
+    "excerpt": "status: 'REFUNDED',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 465,
+    "literals": [
+      "REFUND_PENDING"
+    ],
+    "excerpt": "status: 'REFUND_PENDING',"
+  },
+  {
+    "path": "backend/src/bank-verification/bank-verification.service.ts",
+    "line": 474,
+    "literals": [
+      "REFUND_PENDING"
+    ],
+    "excerpt": "status: 'REFUND_PENDING',"
+  },
+  {
+    "path": "backend/src/categories/categories.repository.ts",
+    "line": 55,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: data.status || 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/categories/categories.repository.ts",
+    "line": 91,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/categories/categories.service.ts",
+    "line": 126,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: dto.status || 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/categories/categories.service.ts",
+    "line": 191,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "await this.repo.update(categoryId, { status: 'INACTIVE' });"
+  },
+  {
+    "path": "backend/src/customers/customers.repository.ts",
+    "line": 101,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE status = 'ACTIVE')::int AS active,"
+  },
+  {
+    "path": "backend/src/customers/customers.repository.ts",
+    "line": 116,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE status = 'ACTIVE')::int AS active,"
+  },
+  {
+    "path": "backend/src/customers/customers.repository.ts",
+    "line": 117,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE status = 'ACTIVE' AND end_date <= NOW() + INTERVAL '7 days')::int AS expiring_soon"
+  },
+  {
+    "path": "backend/src/devices/device-templates.service.ts",
+    "line": 76,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (product.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/devices/device-templates.service.ts",
+    "line": 203,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (product.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/devices/devices.repository.ts",
+    "line": 131,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "return this.prisma.store.findFirst({ where: { status: 'ACTIVE' } });"
+  },
+  {
+    "path": "backend/src/devices/devices.repository.ts",
+    "line": 253,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { storeId, status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/devices/devices.repository.ts",
+    "line": 259,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { productId, storeId, status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/devices/devices.repository.ts",
+    "line": 374,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (store.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/devices/devices.repository.ts",
+    "line": 402,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 29,
+    "literals": [
+      "ACTIVE",
+      "USED",
+      "REVOKED"
+    ],
+    "excerpt": "status: 'ACTIVE' | 'USED' | 'REVOKED';"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 50,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 62,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 73,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (record.deviceId === deviceId.toUpperCase() && record.status === 'ACTIVE' && record.expiresAt > now) {"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 89,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (record.status !== 'ACTIVE') return false;"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 91,
+    "literals": [
+      "REVOKED"
+    ],
+    "excerpt": "record.status = 'REVOKED';"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 102,
+    "literals": [
+      "USED"
+    ],
+    "excerpt": "record.status = 'USED';"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 288,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "this.devicesRepo.count({ ...whereClause, status: 'ACTIVE' }),"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 289,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "this.devicesRepo.count({ ...whereClause, status: { not: 'ACTIVE' } }),"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 393,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 478,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "await this.devicesRepo.update(BigInt(existing.buttonId), { status: 'INACTIVE' });"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 552,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "const updated = await this.devicesRepo.update(BigInt(existing.buttonId), { status: 'INACTIVE' });"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 560,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "const updated = await this.devicesRepo.update(BigInt(existing.buttonId), { status: 'ACTIVE' });"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 730,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "const buttons = await this.devicesRepo.findMany({ status: 'INACTIVE' });"
+  },
+  {
+    "path": "backend/src/devices/devices.service.ts",
+    "line": 774,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "canClaim: button.status === 'ACTIVE' && !button.customerId,"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 46,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "update: { status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 50,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 78,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 88,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 97,
+    "literals": [
+      "USED"
+    ],
+    "excerpt": "SET status = 'USED'"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 100,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "AND status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 112,
+    "literals": [
+      "USED"
+    ],
+    "excerpt": "data: { status: 'USED' },"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 144,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "SET session_data = EXCLUDED.session_data, expires_at = EXCLUDED.expires_at, status = 'ACTIVE';`,"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 157,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE session_id = $1 AND expires_at > CURRENT_TIMESTAMP AND status = 'ACTIVE';`,"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 167,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE session_id = $1 AND expires_at > CURRENT_TIMESTAMP AND status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 174,
+    "literals": [
+      "CLAIMED"
+    ],
+    "excerpt": "SET status = 'CLAIMED', claimed_by = $2, updated_at = NOW()"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 202,
+    "literals": [
+      "USED"
+    ],
+    "excerpt": "SET status = 'USED'"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 205,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "AND status = 'ACTIVE'"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 219,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "SET session_data = EXCLUDED.session_data, expires_at = EXCLUDED.expires_at, status = 'ACTIVE';`,"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 256,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (session.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 334,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status = 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 349,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "DO UPDATE SET status = 'ACTIVE', updated_at = NOW();`,"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 367,
+    "literals": [
+      "CLAIMED"
+    ],
+    "excerpt": "SET status = 'CLAIMED',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 379,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 394,
+    "literals": [
+      "UNASSIGNED"
+    ],
+    "excerpt": "status: 'UNASSIGNED',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.repository.ts",
+    "line": 412,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "status: 'INACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.service.ts",
+    "line": 94,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/devices/provisioning.service.ts",
+    "line": 290,
+    "literals": [
+      "UNASSIGNED"
+    ],
+    "excerpt": "data: { deviceId: button.deviceId, status: 'UNASSIGNED' },"
+  },
+  {
+    "path": "backend/src/devices/provisioning.service.ts",
+    "line": 324,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "status: 'INACTIVE',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 21,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "status: 'OPEN',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 35,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "status: 'OPEN',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 53,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "status: 'OPEN',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 72,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "status: 'OPEN',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 100,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "if (shift.status !== 'OPEN') {"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 110,
+    "literals": [
+      "CLOSED"
+    ],
+    "excerpt": "status: 'CLOSED',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 143,
+    "literals": [
+      "HANDED_OVER"
+    ],
+    "excerpt": "if (shift.status === 'HANDED_OVER') {"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 150,
+    "literals": [
+      "HANDED_OVER"
+    ],
+    "excerpt": "status: 'HANDED_OVER',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 193,
+    "literals": [
+      "DELIVERED"
+    ],
+    "excerpt": "orderStatus: 'DELIVERED',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 203,
+    "literals": [
+      "DELIVERY_FAILED"
+    ],
+    "excerpt": "orderStatus: 'DELIVERY_FAILED',"
+  },
+  {
+    "path": "backend/src/driver-shifts/driver-shifts.service.ts",
+    "line": 302,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "if (shift.status === 'OPEN') {"
+  },
+  {
+    "path": "backend/src/drivers/drivers.service.ts",
+    "line": 60,
+    "literals": [
+      "OFFLINE"
+    ],
+    "excerpt": "status: 'OFFLINE',"
+  },
+  {
+    "path": "backend/src/drivers/drivers.service.ts",
+    "line": 88,
+    "literals": [
+      "DELIVERED",
+      "COMPLETED"
+    ],
+    "excerpt": "orderStatus: { in: ['DELIVERED', 'COMPLETED'] },"
+  },
+  {
+    "path": "backend/src/drivers/drivers.service.ts",
+    "line": 95,
+    "literals": [
+      "ASSIGNED",
+      "PICKED_UP",
+      "SHIPPING"
+    ],
+    "excerpt": "orderStatus: { in: ['ASSIGNED', 'PICKED_UP', 'SHIPPING'] },"
+  },
+  {
+    "path": "backend/src/drivers/drivers.service.ts",
+    "line": 125,
+    "literals": [
+      "ONLINE"
+    ],
+    "excerpt": "status: 'ONLINE',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 47,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 126,
+    "literals": [
+      "DELETED"
+    ],
+    "excerpt": "status: 'DELETED',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 136,
+    "literals": [
+      "APPROVED"
+    ],
+    "excerpt": "status: 'APPROVED',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 181,
+    "literals": [
+      "PROCESSED",
+      "DUPLICATE",
+      "UNKNOWN_SESSION"
+    ],
+    "excerpt": "status: 'PROCESSED' | 'DUPLICATE' | 'UNKNOWN_SESSION';"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 239,
+    "literals": [
+      "DUPLICATE"
+    ],
+    "excerpt": "status: 'DUPLICATE',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 253,
+    "literals": [
+      "UNKNOWN_SESSION"
+    ],
+    "excerpt": "status: 'UNKNOWN_SESSION',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 288,
+    "literals": [
+      "APPROVED",
+      "APPROVED"
+    ],
+    "excerpt": "if (lockedSession.status === 'APPROVED' && targetStatus !== 'APPROVED') {"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 301,
+    "literals": [
+      "APPROVED"
+    ],
+    "excerpt": "AND \"status\" = 'APPROVED'"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 332,
+    "literals": [
+      "APPROVED"
+    ],
+    "excerpt": "data: { kycStatus: 'APPROVED' },"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 337,
+    "literals": [
+      "DECLINED"
+    ],
+    "excerpt": "data: { kycStatus: 'DECLINED' },"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.repository.ts",
+    "line": 348,
+    "literals": [
+      "PROCESSED"
+    ],
+    "excerpt": "status: 'PROCESSED',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.service.ts",
+    "line": 80,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.service.ts",
+    "line": 140,
+    "literals": [
+      "APPROVED"
+    ],
+    "excerpt": "if (newStatus && session.status !== 'APPROVED') {"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.service.ts",
+    "line": 231,
+    "literals": [
+      "UNKNOWN"
+    ],
+    "excerpt": "const rawStatus = (payload?.status || payload?.data?.status || 'UNKNOWN').toString();"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.service.ts",
+    "line": 260,
+    "literals": [
+      "DUPLICATE"
+    ],
+    "excerpt": "if (result.status === 'DUPLICATE') {"
+  },
+  {
+    "path": "backend/src/identity-verifications/identity-verifications.service.ts",
+    "line": 265,
+    "literals": [
+      "UNKNOWN_SESSION"
+    ],
+    "excerpt": "if (result.status === 'UNKNOWN_SESSION') {"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 113,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "where: { buttonId: device.buttonId, orderStatus: 'PENDING' },"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 158,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "SET status = 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 162,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "WHERE iot_idempotency_keys.status = 'FAILED'"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 163,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "OR (iot_idempotency_keys.status = 'PROCESSING' AND iot_idempotency_keys.locked_until < NOW())"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 183,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "message: existing?.status === 'COMPLETED'"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 224,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "SET status = 'COMPLETED', order_id = $1, updated_at = NOW()"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 225,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "WHERE device_id = $2 AND request_id = $3 AND lease_token = $4 AND status = 'PROCESSING'`,"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 250,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED', updated_at = NOW()"
+  },
+  {
+    "path": "backend/src/iot/iot.service.ts",
+    "line": 251,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "WHERE device_id = $1 AND request_id = $2 AND lease_token = $3 AND status = 'PROCESSING'`,"
+  },
+  {
+    "path": "backend/src/media/media.controller.ts",
+    "line": 202,
+    "literals": [
+      "SHIPPING"
+    ],
+    "excerpt": "if (order.orderStatus !== 'SHIPPING') {"
+  },
+  {
+    "path": "backend/src/orders/customer-cancellation.policy.ts",
+    "line": 8,
+    "literals": [
+      "PENDING",
+      "CONFIRMED"
+    ],
+    "excerpt": "if (!['PENDING', 'CONFIRMED'].includes(status)) {"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 86,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (!product || product.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 96,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 162,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "orderStatus: 'PENDING',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 163,
+    "literals": [
+      "UNPAID"
+    ],
+    "excerpt": "paymentStatus: 'UNPAID',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 191,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 304,
+    "literals": [
+      "CONFIRMED",
+      "READY_FOR_DELIVERY",
+      "PENDING"
+    ],
+    "excerpt": "orderStatus: { in: ['CONFIRMED', 'READY_FOR_DELIVERY', 'PENDING'] },"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 505,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "status: 'PAID',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 569,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "orderStatus: 'COMPLETED',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 711,
+    "literals": [
+      "READY_FOR_DELIVERY"
+    ],
+    "excerpt": "if (existing.orderStatus !== 'READY_FOR_DELIVERY' || existing.assignedDriverId != null) {"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 818,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "where: { orderId: BigInt(orderId), status: 'PAID' },"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 831,
+    "literals": [
+      "DELIVERED"
+    ],
+    "excerpt": "orderStatus: 'DELIVERED',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 832,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "paymentStatus: 'PAID',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 849,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "WHERE driver_id = $3 AND status = 'OPEN'`,"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 925,
+    "literals": [
+      "DELIVERY_FAILED"
+    ],
+    "excerpt": "orderStatus: 'DELIVERY_FAILED',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 938,
+    "literals": [
+      "OPEN"
+    ],
+    "excerpt": "WHERE driver_id = $1 AND status = 'OPEN'`,"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1003,
+    "literals": [
+      "DELIVERED"
+    ],
+    "excerpt": "where: { ...where, orderStatus: 'DELIVERED' },"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1006,
+    "literals": [
+      "DELIVERY_FAILED"
+    ],
+    "excerpt": "where: { ...where, orderStatus: 'DELIVERY_FAILED' },"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1009,
+    "literals": [
+      "DELIVERED",
+      "COD"
+    ],
+    "excerpt": "where: { ...where, orderStatus: 'DELIVERED', paymentMethod: 'COD' },"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1050,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (!store || store.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1106,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1112,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1199,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "orderStatus: 'PENDING',"
+  },
+  {
+    "path": "backend/src/orders/orders.repository.ts",
+    "line": 1200,
+    "literals": [
+      "UNPAID"
+    ],
+    "excerpt": "paymentStatus: 'UNPAID',"
+  },
+  {
+    "path": "backend/src/orders/orders.service.ts",
+    "line": 94,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (button.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/orders/orders.service.ts",
+    "line": 497,
+    "literals": [
+      "CANCELLED"
+    ],
+    "excerpt": "if (order.orderStatus === 'CANCELLED') return toOrderResponseDto(order);"
+  },
+  {
+    "path": "backend/src/orders/orders.service.ts",
+    "line": 501,
+    "literals": [
+      "PENDING",
+      "CONFIRMED",
+      "PREPARING",
+      "PROCESSING"
+    ],
+    "excerpt": "if (!['PENDING', 'CONFIRMED', 'PREPARING', 'PROCESSING'].includes(order.orderStatus)) {"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 101,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "if (payment.status === 'PAID') {"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 106,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "if (payment.status !== 'PENDING') {"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 124,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "status: 'PAID',"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 136,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "paymentStatus: 'PAID',"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 137,
+    "literals": [
+      "CONFIRMED"
+    ],
+    "excerpt": "orderStatus: 'CONFIRMED',"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 229,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/payments/payments.repository.ts",
+    "line": 232,
+    "literals": [
+      "CANCELLED"
+    ],
+    "excerpt": "status: 'CANCELLED',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 62,
+    "literals": [
+      "SHIPPING"
+    ],
+    "excerpt": "if (order.orderStatus !== 'SHIPPING') {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 79,
+    "literals": [
+      "CANCELLED",
+      "REJECTED",
+      "COMPLETED"
+    ],
+    "excerpt": "if (['CANCELLED', 'REJECTED', 'COMPLETED'].includes(order.orderStatus)) {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 87,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "if (order.paymentStatus === 'PAID') {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 98,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "(tx: any) => tx.status === 'PENDING' && tx.paymentLinkId"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 110,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 148,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 156,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "const activeTx = recheck?.find((tx: any) => tx.status === 'PENDING' && tx.paymentLinkId);"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 167,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 219,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 323,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 382,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "if (transaction.status === 'PAID') {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 518,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "if (existingOrder.paymentStatus === 'PAID') {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 523,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "if (terminalStatuses.includes(existingOrder.orderStatus) || existingOrder.orderStatus !== 'PENDING') {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 530,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "if (tx.status === 'PENDING' && tx.paymentLinkId) {"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 627,
+    "literals": [
+      "PAID"
+    ],
+    "excerpt": "status: 'PAID',"
+  },
+  {
+    "path": "backend/src/payments/payments.service.ts",
+    "line": 666,
+    "literals": [
+      "CANCELLED"
+    ],
+    "excerpt": "status: 'CANCELLED',"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 38,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 64,
+    "literals": [
+      "ACTIVE",
+      "ACTIVE"
+    ],
+    "excerpt": "if ((data.status || 'ACTIVE') === 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 68,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 85,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: data.status || 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 116,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (status === 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 120,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.repository.ts",
+    "line": 161,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.service.ts",
+    "line": 104,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "const status = dto.status || 'ACTIVE';"
+  },
+  {
+    "path": "backend/src/product-discounts/product-discounts.service.ts",
+    "line": 105,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (status === 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/products/products.repository.ts",
+    "line": 294,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/products/products.repository.ts",
+    "line": 296,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/products/products.service.ts",
+    "line": 212,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/products/products.service.ts",
+    "line": 455,
+    "literals": [
+      "INACTIVE"
+    ],
+    "excerpt": "return this.update(id, { status: 'INACTIVE' }, user);"
+  },
+  {
+    "path": "backend/src/rentals/rentals.repository.ts",
+    "line": 132,
+    "literals": [
+      "TERMINATED",
+      "CANCELLED"
+    ],
+    "excerpt": "if (['TERMINATED', 'CANCELLED'].includes(lockedRental.status)) {"
+  },
+  {
+    "path": "backend/src/rentals/rentals.repository.ts",
+    "line": 165,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "where: { rentalId: params.rentalId, status: 'PENDING' },"
+  },
+  {
+    "path": "backend/src/rentals/rentals.repository.ts",
+    "line": 166,
+    "literals": [
+      "CANCELLED"
+    ],
+    "excerpt": "data: { status: 'CANCELLED' },"
+  },
+  {
+    "path": "backend/src/rentals/rentals.repository.ts",
+    "line": 178,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/rentals/rentals.service.ts",
+    "line": 92,
+    "literals": [
+      "PENDING_PAYMENT"
+    ],
+    "excerpt": "status: 'PENDING_PAYMENT',"
+  },
+  {
+    "path": "backend/src/rentals/rentals.service.ts",
+    "line": 153,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/rentals/rentals.service.ts",
+    "line": 168,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/rentals/rentals.service.ts",
+    "line": 212,
+    "literals": [
+      "PAID",
+      "ACTIVE"
+    ],
+    "excerpt": "if (rental.status !== 'PAID' && rental.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/rentals/rentals.service.ts",
+    "line": 214,
+    "literals": [
+      "PENDING_PAYMENT"
+    ],
+    "excerpt": "if (process.env.NODE_ENV === 'test' && rental.status === 'PENDING_PAYMENT') {"
+  },
+  {
+    "path": "backend/src/staff/staff.repository.ts",
+    "line": 15,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { userId, status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/staff/staff.repository.ts",
+    "line": 151,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "COUNT(*) FILTER (WHERE status = 'ACTIVE')::int AS active_buttons,"
+  },
+  {
+    "path": "backend/src/staff/staff.repository.ts",
+    "line": 173,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE b.store_id = ${storeId} AND (b.battery_level < 20 OR b.status != 'ACTIVE')"
+  },
+  {
+    "path": "backend/src/store-customers/store-customers.repository.ts",
+    "line": 124,
+    "literals": [
+      "COMPLETED",
+      "DELIVERED"
+    ],
+    "excerpt": "orderStatus: { in: ['COMPLETED', 'DELIVERED'] },"
+  },
+  {
+    "path": "backend/src/store-staff/store-staff.repository.ts",
+    "line": 103,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/store-staff/store-staff.service.ts",
+    "line": 131,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (existing.status === 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/store-staff/store-staff.service.ts",
+    "line": 141,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/store-staff/store-staff.service.ts",
+    "line": 208,
+    "literals": [
+      "INACTIVE",
+      "TERMINATED"
+    ],
+    "excerpt": "const canonicalStatus = dto.status === 'INACTIVE' ? 'TERMINATED' : dto.status;"
+  },
+  {
+    "path": "backend/src/store-subscriptions/store-subscriptions.repository.ts",
+    "line": 63,
+    "literals": [
+      "DELETED"
+    ],
+    "excerpt": "where: { storeId, status: { not: 'DELETED' } },"
+  },
+  {
+    "path": "backend/src/store-subscriptions/store-subscriptions.repository.ts",
+    "line": 71,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/store-subscriptions/store-subscriptions.repository.ts",
+    "line": 136,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "WHERE store_id = $1 AND status = 'ACTIVE' AND end_date > CURRENT_TIMESTAMP"
+  },
+  {
+    "path": "backend/src/store-subscriptions/store-subscriptions.repository.ts",
+    "line": 182,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/store-subscriptions/store-subscriptions.repository.ts",
+    "line": 202,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "status: 'COMPLETED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.repository.ts",
+    "line": 71,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "verificationStatus: 'PENDING',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.repository.ts",
+    "line": 100,
+    "literals": [
+      "OWNERSHIP_VERIFIED"
+    ],
+    "excerpt": "verificationStatus: 'OWNERSHIP_VERIFIED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.repository.ts",
+    "line": 141,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "if (lockedWithdrawal.status === 'SUCCEEDED') return;"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.repository.ts",
+    "line": 144,
+    "literals": [
+      "FAILED",
+      "FAILED_CONFIRMED"
+    ],
+    "excerpt": "if (lockedWithdrawal.status === 'FAILED' || lockedWithdrawal.status === 'FAILED_CONFIRMED') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.repository.ts",
+    "line": 178,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "status: 'SUCCEEDED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 200,
+    "literals": [
+      "OWNERSHIP_VERIFIED"
+    ],
+    "excerpt": "verificationStatus: 'OWNERSHIP_VERIFIED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 239,
+    "literals": [
+      "OWNERSHIP_VERIFIED"
+    ],
+    "excerpt": "verificationStatus: 'OWNERSHIP_VERIFIED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 244,
+    "literals": [
+      "OWNERSHIP_VERIFIED"
+    ],
+    "excerpt": "verificationStatus: 'OWNERSHIP_VERIFIED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 328,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 377,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "SET status = 'PROCESSING', updated_at = NOW()"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 378,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "WHERE withdrawal_id = ${rawId} AND status = 'PENDING'"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 422,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "status: 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 447,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "status: 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 482,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "if (lockedWithdrawal.status === 'SUCCEEDED') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 554,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "status: 'FAILED',"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 609,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "if (isSucceeded && withdrawal.status === 'SUCCEEDED') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 612,
+    "literals": [
+      "FAILED",
+      "FAILED_CONFIRMED"
+    ],
+    "excerpt": "if (isFailed && (withdrawal.status === 'FAILED' || withdrawal.status === 'FAILED_CONFIRMED')) {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 616,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "if (withdrawal.status === 'SUCCEEDED') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 621,
+    "literals": [
+      "FAILED",
+      "FAILED_CONFIRMED"
+    ],
+    "excerpt": "if (withdrawal.status === 'FAILED' || withdrawal.status === 'FAILED_CONFIRMED') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 669,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "if (withdrawal.status !== 'PROCESSING') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 698,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "if (!lockedWithdrawal || lockedWithdrawal.status === 'SUCCEEDED') {"
+  },
+  {
+    "path": "backend/src/store-wallet/store-wallet.service.ts",
+    "line": 725,
+    "literals": [
+      "SUCCEEDED"
+    ],
+    "excerpt": "status: 'SUCCEEDED',"
+  },
+  {
+    "path": "backend/src/stores/stores.repository.ts",
+    "line": 16,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/stores/stores.service.ts",
+    "line": 51,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/stores/stores.service.ts",
+    "line": 105,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "status: 'ACTIVE',"
+  },
+  {
+    "path": "backend/src/stores/stores.service.ts",
+    "line": 109,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/stores/stores.service.ts",
+    "line": 117,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/websocket/events.gateway.ts",
+    "line": 99,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (this.prisma && (!dbUser || dbUser.status !== 'ACTIVE')) {"
+  },
+  {
+    "path": "backend/src/websocket/events.gateway.ts",
+    "line": 134,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { ownerUserId: userBigInt, status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/websocket/events.gateway.ts",
+    "line": 138,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "where: { userId: userBigInt, status: 'ACTIVE' },"
+  },
+  {
+    "path": "backend/src/bank-verification/providers/bank-verification.provider.interface.ts",
+    "line": 19,
+    "literals": [
+      "PENDING",
+      "SUCCESS",
+      "FAILED"
+    ],
+    "excerpt": "status: 'PENDING' | 'SUCCESS' | 'FAILED';"
+  },
+  {
+    "path": "backend/src/bank-verification/providers/payos-bank-verification.provider.ts",
+    "line": 114,
+    "literals": [
+      "SUCCESS"
+    ],
+    "excerpt": "status: 'SUCCESS',"
+  },
+  {
+    "path": "backend/src/bank-verification/providers/payos-bank-verification.provider.ts",
+    "line": 132,
+    "literals": [
+      "SUCCESS"
+    ],
+    "excerpt": "status: 'SUCCESS',"
+  },
+  {
+    "path": "backend/src/bank-verification/providers/payos-bank-verification.provider.ts",
+    "line": 141,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "status: 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/providers/payos-bank-verification.provider.ts",
+    "line": 149,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "status: 'FAILED',"
+  },
+  {
+    "path": "backend/src/bank-verification/providers/payos-bank-verification.provider.ts",
+    "line": 160,
+    "literals": [
+      "VERIFIED"
+    ],
+    "excerpt": "status: 'VERIFIED',"
+  },
+  {
+    "path": "backend/src/common/guards/hmac-auth.guard.ts",
+    "line": 54,
+    "literals": [
+      "ACTIVE"
+    ],
+    "excerpt": "if (button.status !== 'ACTIVE') {"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 80,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "status = 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 102,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "if (row.status === 'COMPLETED') {"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 111,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "if (row.status === 'PROCESSING') {"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 124,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "SET status = 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 137,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "SET status = 'PROCESSING',"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 218,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "if (conflict.status === 'COMPLETED') {"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 252,
+    "literals": [
+      "COMPLETED"
+    ],
+    "excerpt": "SET status = 'COMPLETED',"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 258,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "AND status = 'PROCESSING'"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 278,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "AND status = 'PROCESSING'"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 283,
+    "literals": [
+      "FAILED"
+    ],
+    "excerpt": "SET status = 'FAILED',"
+  },
+  {
+    "path": "backend/src/common/idempotency/idempotency.repository.ts",
+    "line": 287,
+    "literals": [
+      "PROCESSING"
+    ],
+    "excerpt": "AND status = 'PROCESSING'"
+  },
+  {
+    "path": "backend/src/common/queues/queue.interface.ts",
+    "line": 20,
+    "literals": [
+      "DEAD",
+      "RETRYING",
+      "RETRY_QUEUED",
+      "RESOLVED"
+    ],
+    "excerpt": "status: 'DEAD' | 'RETRYING' | 'RETRY_QUEUED' | 'RESOLVED';"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 214,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "status: 'RETRY_QUEUED',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 218,
+    "literals": [
+      "RESOLVED"
+    ],
+    "excerpt": "status: 'RESOLVED',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 245,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "memoryJob?.status === 'RETRY_QUEUED' &&"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 253,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "unpersistedJob?.status === 'RETRY_QUEUED' &&"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 672,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "status: 'RETRY_QUEUED',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 676,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "status: 'DEAD',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 699,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "deadJob?.status === 'RETRY_QUEUED' &&"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 702,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "deadJob.status = 'DEAD';"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 708,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "unpersisted?.status === 'RETRY_QUEUED' &&"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 711,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "unpersisted.status = 'DEAD';"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 730,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "status: 'DEAD',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 751,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "status: 'DEAD',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 857,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "if (!dbJob || dbJob.status !== 'DEAD') {"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 859,
+    "literals": [
+      "NOT_FOUND"
+    ],
+    "excerpt": "`DLQ job ${dlqId} cannot be claimed from DB (status is ${dbJob?.status ?? 'NOT_FOUND'})`,"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 871,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "where: { id: dlqId, status: 'DEAD' },"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 873,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "status: 'RETRY_QUEUED',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 887,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "if (!deadJob || deadJob.status !== 'DEAD') {"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 890,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "deadJob.status = 'RETRY_QUEUED';"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 901,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "where: { id: dlqId, replayJobId, status: 'RETRY_QUEUED' },"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 902,
+    "literals": [
+      "DEAD",
+      "MISSING_QUEUE_OR_JOB_NAME"
+    ],
+    "excerpt": "data: { status: 'DEAD', failedReason: 'MISSING_QUEUE_OR_JOB_NAME' },"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 924,
+    "literals": [
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "where: { id: dlqId, replayJobId, status: 'RETRY_QUEUED' },"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 926,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "status: 'DEAD',"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 941,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "deadJob.status = 'DEAD';"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 960,
+    "literals": [
+      "RETRYING",
+      "RETRY_QUEUED"
+    ],
+    "excerpt": "status: { in: ['RETRYING', 'RETRY_QUEUED'] },"
+  },
+  {
+    "path": "backend/src/common/queues/queue.service.ts",
+    "line": 964,
+    "literals": [
+      "DEAD"
+    ],
+    "excerpt": "status: 'DEAD',"
+  },
+  {
+    "path": "backend/src/drivers/dto/update-duty.dto.ts",
+    "line": 7,
+    "literals": [
+      "ONLINE",
+      "OFFLINE"
+    ],
+    "excerpt": "status: 'ONLINE' | 'OFFLINE';"
+  },
+  {
+    "path": "backend/src/orders/dto/deliver-order.dto.ts",
+    "line": 7,
+    "literals": [
+      "DELIVERED"
+    ],
+    "excerpt": "status: 'DELIVERED';"
+  },
+  {
+    "path": "backend/src/orders/dto/order-response.dto.ts",
+    "line": 94,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "orderStatus: raw.orderStatus || 'PENDING',"
+  },
+  {
+    "path": "backend/src/orders/dto/order-response.dto.ts",
+    "line": 95,
+    "literals": [
+      "UNPAID"
+    ],
+    "excerpt": "paymentStatus: raw.paymentStatus || 'UNPAID',"
+  },
+  {
+    "path": "backend/src/orders/dto/order-timeline-response.dto.ts",
+    "line": 32,
+    "literals": [
+      "PENDING"
+    ],
+    "excerpt": "status: 'PENDING',"
+  },
+  {
+    "path": "backend/src/orders/dto/order-timeline-response.dto.ts",
+    "line": 83,
+    "literals": [
+      "DELIVERED"
+    ],
+    "excerpt": "status: 'DELIVERED',"
+  },
+  {
+    "path": "backend/src/product-discounts/dto/create-product-discount.dto.ts",
+    "line": 27,
+    "literals": [
+      "ACTIVE",
+      "INACTIVE"
+    ],
+    "excerpt": "@IsIn(['ACTIVE', 'INACTIVE'], { message: 'status chỉ có thể là ACTIVE hoặc INACTIVE' })"
+  },
+  {
+    "path": "backend/src/store-customers/dto/update-customer-status.dto.ts",
+    "line": 7,
+    "literals": [
+      "ACTIVE",
+      "BLOCKED"
+    ],
+    "excerpt": "status: 'ACTIVE' | 'BLOCKED';"
+  },
+  {
+    "path": "backend/src/stores/dto/store-me-response.dto.ts",
+    "line": 36,
+    "literals": [
+      "VERIFIED"
+    ],
+    "excerpt": "const verifiedBank = store.bankAccounts?.find((b: any) => b.verificationStatus === 'VERIFIED') || store.bankAccounts?.[0] || null;"
+  },
+  {
+    "path": "backend/src/stores/dto/store-me-response.dto.ts",
+    "line": 63,
+    "literals": [
+      "UNVERIFIED"
+    ],
+    "excerpt": "status: verifiedBank?.verificationStatus || 'UNVERIFIED',"
+  },
+  {
+    "path": "backend/src/stores/dto/store-me-response.dto.ts",
+    "line": 64,
+    "literals": [
+      "VERIFIED"
+    ],
+    "excerpt": "isVerified: verifiedBank?.verificationStatus === 'VERIFIED',"
+  }
+]

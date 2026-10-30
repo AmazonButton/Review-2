@@ -1,0 +1,21 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/auth/auth.service.ts; customer address service/controller; SRS FR01-04, FR08, FR34-35
+%% Simplified workflow; account verification/reset have their own guarded subflows. Proposed owner: Nguyen Van Thanh; DS01a/DS01b. No manual execution is asserted.
+flowchart TD
+    start["Resident opens registration / sign-in"]
+    verify["API validates credentials / verified identity"]
+    ok{"Identity accepted?"}
+    deny["Reject invalid/inactive credentials<br/>No authenticated session"]
+    session["Issue server-derived session and role"]
+    address["Resident reads/creates own delivery address"]
+    scope{"Ownership / input accepted?"}
+    foreign["Reject foreign/invalid address<br/>No mutation or data disclosure"]
+    done["Own address persisted / selected<br/>Session and profile ready"]
+    start -->|"Resident / identity provider"| verify
+    verify -->|"AuthService"| ok
+    ok -->|"No"| deny
+    ok -->|"Yes"| session
+    session -->|"Authenticated customer"| address
+    address -->|"Address authorization"| scope
+    scope -->|"No"| foreign
+    scope -->|"Yes"| done

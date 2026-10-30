@@ -1,0 +1,24 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% payments/payments.repository.ts; bank-verification/bank-verification.repository.ts; store-wallet/store-wallet.service.ts
+%% Branches are related financial operations, not one mandatory payment-before-bank sequence. Collection does not immediately credit the store wallet. Proposed owner: Tran Tan Phat; DS03a/DS03b; team reports implementation complete, live acceptance not asserted.
+flowchart TD
+    start["Customer / store operator selects financial operation"]
+    pay["Customer requests PayOS collection<br/>Server validates order and creates link"]
+    bank["Store operator registers bank account<br/>Starts ownership-verification request"]
+    callback["PayOS callback: verify signature,<br/>association, amount and idempotency"]
+    verified["Bank callback: verify sender/destination,<br/>reference, amount and expiry"]
+    paid["Transaction PAID; order update or<br/>REFUND_PENDING reconciliation as eligible"]
+    gate{"OWNERSHIP_VERIFIED + authorized role<br/>Sufficient wallet funds?"}
+    withdraw["Freeze/debit under transaction; create PENDING<br/>Atomically claim PROCESSING before payout"]
+    settle["Verified success -> SUCCEEDED<br/>Confirmed failure -> guarded compensation<br/>Unknown timeout -> remain PROCESSING"]
+    reject["Invalid/repeated evidence: reject or<br/>return prior result without duplicate effects"]
+    start -->|"Collection branch"| pay
+    start -->|"Banking branch"| bank
+    pay -->|"Provider event"| callback
+    callback -->|"Accepted"| paid
+    callback -->|"Invalid / duplicate"| reject
+    bank -->|"Provider event"| verified
+    verified -->|"Valid ownership evidence"| gate
+    gate -->|"Yes"| withdraw
+    gate -->|"No"| reject
+    withdraw -->|"Provider callback / reconciliation"| settle

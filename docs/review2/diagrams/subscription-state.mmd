@@ -1,0 +1,13 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/store-subscriptions/store-subscriptions.repository.ts:130-210; service.ts:getCurrentSubscription
+%% Expired-by-time and renewal are conceptual conditions/actions, not persisted EXPIRED/RENEW values. COMPLETED in this repository belongs to SubscriptionIdempotencyKey, not StoreSubscription. Do not count conceptual nodes as database enums.
+stateDiagram-v2
+    state "No current eligible subscription / Derived query result" as NO_CURRENT
+    state "Persisted status ACTIVE / start/end dates + plan" as ACTIVE
+    state "Expired by time (derived) / status may still be ACTIVE" as EXPIRED_TIME
+    state "Renew / new subscription row / Wallet transaction + idempotency record" as RENEW
+    NO_CURRENT --> ACTIVE: Eligible plan + atomic wallet debit
+    ACTIVE --> EXPIRED_TIME: endDate <= current time
+    ACTIVE --> RENEW: Renew after active end date
+    EXPIRED_TIME --> RENEW: New eligible subscription
+    RENEW --> ACTIVE: Create new row

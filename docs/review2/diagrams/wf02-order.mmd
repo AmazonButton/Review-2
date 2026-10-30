@@ -1,0 +1,23 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/orders/orders.service.ts; orders.repository.ts; dto/update-order-status.dto.ts
+%% All ordering channels use the same customer deadline. Exactly 120 seconds is expired. Delivery failure/retry/rejection branches are in the order state graph. Proposed owner: Le Ho Gia Bao; DS02a/DS02b.
+flowchart TD
+    start["Customer selects store, products and address"]
+    create["Server validates stock/price and creates COD order"]
+    choice{"Cancel request?"}
+    cancel["Authenticate owner; lock order;<br/>recheck PENDING/CONFIRMED and elapsed <120s"]
+    store["Authorized store confirms and prepares"]
+    result{"Eligible cancellation?"}
+    delivery["Assigned driver ships and records proof / failure"]
+    reject["Reject expired/foreign/ineligible request<br/>Owner retry already CANCELLED is idempotent"]
+    done["Delivery accepted -> COMPLETED<br/>Customer reads committed timeline"]
+    cancelled["CANCELLED; release eligible stock once<br/>Commit then publish scoped event"]
+    start -->|"Customer + storefront API"| create
+    create -->|"PENDING"| choice
+    choice -->|"No"| store
+    choice -->|"Yes"| cancel
+    cancel -->|"Fresh DB clock after row lock"| result
+    result -->|"No"| reject
+    result -->|"Yes"| cancelled
+    store -->|"Allowed transition + roles"| delivery
+    delivery -->|"Success path"| done

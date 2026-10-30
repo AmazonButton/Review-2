@@ -1,0 +1,147 @@
+{
+  "original_output_sha256": "41b4b8ff19ec0f445cadd1527946bc81ee252aacd7fd8dc3db83e52cbdbc034f",
+  "findings": 10,
+  "unresolved_high": [
+    "SR-01",
+    "SR-02",
+    "SR-03",
+    "SR-04",
+    "SR-05"
+  ],
+  "responses": [
+    [
+      "SR-01",
+      "Planned",
+      "Tran Tan Phat / Le Ho Gia Bao",
+      "03/11/2026",
+      "Agree an exact trusted staging-origin setting, implement validation/client alignment, and run positive/hostile-host redirect tests. Do not allow arbitrary vercel.app or disable URL validation. No fix commit asserted."
+    ],
+    [
+      "SR-02",
+      "Planned",
+      "Tran Tan Phat",
+      "03/11/2026",
+      "Confirm the intended rental contract, implement real provider-specific request/callback handling and guarded activation/return terminal path; add payment/replay/invalid-state tests. Current SDD discloses the gap, not a completed fix."
+    ],
+    [
+      "SR-03",
+      "Planned",
+      "Tran Tan Phat",
+      "03/11/2026",
+      "Decide and encode the CLOSED-before-handover invariant and final totals; test OPEN rejection, valid close/handover and idempotent repeat. No fix commit asserted."
+    ],
+    [
+      "SR-04",
+      "Planned",
+      "Le Ho Gia Bao / Tran Tan Phat",
+      "03/11/2026",
+      "Create the actor-to-screen/API matrix for STAFF_ORDER/INVENTORY/BUTTON and generic staff; align entry and nested route visibility while preserving server object scope; test each allowed/denied path."
+    ],
+    [
+      "SR-05",
+      "Planned",
+      "Tran Tan Phat",
+      "02/11/2026",
+      "Provide isolated PostgreSQL/Redis/worker fixtures and corrective revision; rerun complete bank-verification and DLQ suites and retain no-duplicate effects. Preserve historical evidence until valid closure."
+    ],
+    [
+      "SR-06",
+      "Planned",
+      "All workflow owners; coordinated by Nguyen Van Thanh",
+      "04/11/2026",
+      "Review the complete state/guard and invalid-transition inventory, remove conceptual states from persisted-enum counts and reconcile the fixed F/W/T/N and per-owner totals for the actual Review2 commitment."
+    ],
+    [
+      "SR-07",
+      "Planned",
+      "Nguyen Van Thanh / all workflow owners",
+      "04/11/2026",
+      "Review all 23 NFRs, actual recovery facilities and a compatible coverage runner; retain explicit unmeasured states and propose feasible measurement dates. Measurements before Defense follow actual agreed milestones."
+    ],
+    [
+      "SR-08",
+      "Planned",
+      "Le Ho Gia Bao / Truong Quang Tan Tai",
+      "04/11/2026",
+      "Remove or label illustrative infrastructure/current/latency claims; retain any later real measurement with setup, sample and firmware/deployment revision."
+    ],
+    [
+      "SR-09",
+      "Kept",
+      "Truong Quang Tan Tai",
+      "Review 2:05/11/2026; final hardware milestone to be agreed",
+      "Research/drawings are the agreed Iteration1 delivery. Working physical IoT is retained in final scope and must pass the owned physical workflow before final acceptance. Simulation is explicitly labelled and does not close bench cases."
+    ],
+    [
+      "SR-10",
+      "Planned",
+      "Le Ho Gia Bao / Tran Tan Phat; each demo owner",
+      "04/11/2026",
+      "Capture actual Web/Worker/Render build IDs, migration/provider modes, readiness and authorized repeatable workflow/rollback evidence. Existing smoke checks are retained at their observed scope only."
+    ]
+  ],
+  "input_manifest": {
+    "source_implementation_commit": "9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1",
+    "registration_revision": "v0.2 proposed",
+    "date": "2026-10-30",
+    "tool": "Codex",
+    "model": "GPT-6; exact deployed variant not exposed",
+    "inputs": [
+      {
+        "input": "Registration",
+        "original_docx": "Registration_with_BM03.docx",
+        "original_sha256": "801b3ed69fae864f3f88f96b44127d0ca9ba698322c1226a42ba516cf2c12dc5",
+        "public_review_path": "docs/review2/inputs/Registration.md",
+        "public_review_sha256": "a20bd754c65bd7f19e9f6284ab6d3804ad7a9cafeae19dcf594390927a2fb370",
+        "contact_redaction": true
+      },
+      {
+        "input": "Report1",
+        "original_docx": "Report1.docx",
+        "original_sha256": "6e3429aa95bdf30384ec4a02380f7612dc6111ccb8def00fd42f334a6f176233",
+        "public_review_path": "docs/review2/inputs/Report1.md",
+        "public_review_sha256": "2575394e8f0a09b9cb58365eca282c5ddc4aa112ee71e1c4b8afea5cbccebecf",
+        "contact_redaction": true
+      },
+      {
+        "input": "Report2",
+        "original_docx": "Report2.docx",
+        "original_sha256": "2741d433e3e5309ddd6f38e5f78246d790e1ab065750ef22bdf8fbbac20e94e4",
+        "public_review_path": "docs/review2/inputs/Report2.md",
+        "public_review_sha256": "b7a9f485411b6ab6019d30624e20624b77c5f16e47cf1cee83b765c0d81acbc4",
+        "contact_redaction": true
+      },
+      {
+        "input": "SRS",
+        "original_docx": "Report3.docx",
+        "original_sha256": "99ab7583f915f744bd943834d58347540ec01aaf338970d3796f56f7b794dc65",
+        "public_review_path": "docs/review2/inputs/SRS.md",
+        "public_review_sha256": "b5bb0ffa20982f90f4619dd5898566d7d9e7f42a48f8d72024ed23c7eacfcf19",
+        "contact_redaction": true
+      },
+      {
+        "input": "SDD",
+        "original_docx": "Report4.docx",
+        "original_sha256": "2e55cd2082ae06f9e60d519379cfc9575f9b3a6aa2c62d0e5cd0e49f1bca0f84",
+        "public_review_path": "docs/review2/inputs/SDD.md",
+        "public_review_sha256": "dfbc02ed890b18c54b1c6cac9879cf6677d1b5aa9ebc3a4d107f6a589eb72214",
+        "contact_redaction": true
+      },
+      {
+        "input": "Report5",
+        "original_docx": "Report5.docx",
+        "original_sha256": "cfa781e57f8ae40657db7a55b8204f0045ac5cb4cc5d9db3a9e9f2445dd379f5",
+        "public_review_path": "docs/review2/inputs/Report5.md",
+        "public_review_sha256": "2a3956875c79a68dd0058b39befafe557c5887c029b9697683cd93e7b1e4c50a",
+        "contact_redaction": true
+      }
+    ],
+    "prompt_sha256": "17f9a4e79efe35c88c111e94ede2781f08d6621312c02aed7bfb63f48e1c27fa",
+    "limits": [
+      "Read-only source/document review; no live funds transfer or full workflow acceptance",
+      "Docs-only submission commit may contain newer documents while implementation files remain byte-identical to stated commit",
+      "Static schema inventory is not a fresh database introspection"
+    ],
+    "canonical_public_text": "UTF-8 with LF line endings; contact redactions only"
+  }
+}

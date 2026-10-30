@@ -1,0 +1,10 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/driver-shifts/driver-shifts.service.ts: 21-150
+%% Current implementation is shown, including OPEN -> HANDED_OVER. confirmHandover checks role/store and prior HANDED_OVER, but does not require CLOSED; closing later returns prior non-OPEN result. Clarify expected business rule; do not draw a nonexistent guard.
+stateDiagram-v2
+    state "OPEN / Driver starts shift" as OPEN
+    state "CLOSED / Live totals frozen on close" as CLOSED
+    state "HANDED_OVER / Authorized store actor confirms" as HANDED_OVER
+    OPEN --> CLOSED: Own/privileged close
+    CLOSED --> HANDED_OVER: Role + store checks
+    OPEN --> HANDED_OVER: Current code permits; no CLOSED guard

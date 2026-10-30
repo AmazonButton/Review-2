@@ -1,0 +1,30 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/orders/dto/update-order-status.dto.ts: ALLOWED_ORDER_TRANSITIONS
+%% All 16 declared edges are shown. Route/service roles and guards still apply. Customer cancellation is restricted to own PENDING/CONFIRMED orders before 120s; later-state CANCELLED edges are not customer permissions.
+stateDiagram-v2
+    state "PENDING" as PENDING
+    state "CONFIRMED" as CONFIRMED
+    state "PREPARING" as PREPARING
+    state "READY_FOR_DELIVERY" as READY_FOR_DELIVERY
+    state "SHIPPING" as SHIPPING
+    state "DELIVERED" as DELIVERED
+    state "COMPLETED" as COMPLETED
+    state "CANCELLED" as CANCELLED
+    state "REJECTED" as REJECTED
+    state "DELIVERY_FAILED" as DELIVERY_FAILED
+    PENDING --> CONFIRMED
+    PENDING --> CANCELLED
+    PENDING --> REJECTED
+    CONFIRMED --> PREPARING
+    CONFIRMED --> CANCELLED
+    CONFIRMED --> REJECTED
+    PREPARING --> READY_FOR_DELIVERY
+    PREPARING --> CANCELLED
+    READY_FOR_DELIVERY --> SHIPPING
+    READY_FOR_DELIVERY --> CANCELLED
+    SHIPPING --> DELIVERED
+    SHIPPING --> DELIVERY_FAILED
+    SHIPPING --> CANCELLED
+    DELIVERY_FAILED --> SHIPPING
+    DELIVERY_FAILED --> CANCELLED
+    DELIVERED --> COMPLETED

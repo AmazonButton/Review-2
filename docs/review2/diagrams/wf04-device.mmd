@@ -1,0 +1,19 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% devices/provisioning.service.ts; devices.service.ts; iot/iot.service.ts; order persistence
+%% Proposed owner: Truong Quang Tan Tai; DS04a/DS04b. This is a final-product target. Iteration 1 research/drawings or simulated API requests do not prove physical provisioning/ordering acceptance.
+flowchart TD
+    start["Resident scans device code + valid pairing token"]
+    claim["Create authorized provisioning session;<br/>configure BLE/Wi-Fi and claim owned device"]
+    config["Assign supported product / own address"]
+    press["Resident presses physical ESP32 button"]
+    guard{"Signature, freshness, mapping,<br/>idempotency and stock accepted?"}
+    reject["Reject invalid/replayed request;<br/>recoverable connectivity failure / controlled retry"]
+    order["One accepted PENDING order<br/>Scoped store/customer notification"]
+    done["Store processes; resident tracks order"]
+    start -->|"Resident + device"| claim
+    claim -->|"Ownership verified"| config
+    config -->|"Configured physical target"| press
+    press -->|"Device -> API"| guard
+    guard -->|"No"| reject
+    guard -->|"Yes"| order
+    order -->|"Committed result"| done

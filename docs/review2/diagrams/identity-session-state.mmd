@@ -1,0 +1,16 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% backend/src/identity-verifications/identity-verifications.repository.ts: 270-337; service.ts:135-143
+%% Principal paths only: the reducer allows verified status updates from non-APPROVED states, not only the arrows shown. APPROVED is anti-downgrade. Soft DELETED visibility and user.kycStatus are separate domains. Full transition tests must exercise the reducer, not infer a closed enum from the drawing.
+stateDiagram-v2
+    state "PENDING" as PENDING
+    state "IN_REVIEW" as IN_REVIEW
+    state "DECLINED" as DECLINED
+    state "EXPIRED" as EXPIRED
+    state "ABANDONED" as ABANDONED
+    state "APPROVED / Reject downgrade to non-approved" as APPROVED
+    PENDING --> IN_REVIEW: Verified provider status
+    PENDING --> APPROVED: Approved
+    PENDING --> DECLINED: Declined/rejected
+    PENDING --> EXPIRED: Expired
+    PENDING --> ABANDONED: Abandoned
+    IN_REVIEW --> APPROVED: Approved

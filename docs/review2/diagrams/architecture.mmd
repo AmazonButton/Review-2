@@ -1,0 +1,19 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% frontend/vercel.json; backend/src/main.ts; team-declared URLs, 30 Oct 2026
+%% Edge-to-origin route, deployed revision and live availability are not independently verified. Device integration is a final-product target; Iteration 1 supplies research/drawings.
+flowchart TD
+    web["Web / Vercel<br/>buttontdash.vercel.app"]
+    mobile["Flutter Mobile<br/>API base configured per build"]
+    proxy["API edge / Cloudflare Worker<br/>fragrant-mode-3a41.ptt24032004.workers.dev"]
+    api["NestJS / Render<br/>backend-fae8.onrender.com"]
+    db["Supabase PostgreSQL<br/>Prisma + migrations"]
+    queue["Redis / workers / realtime<br/>Provider and runtime to record"]
+    providers["PayOS / identity / notification / media<br/>Independent signed callback boundaries"]
+    device["ESP32 physical-device target<br/>Authenticated device request"]
+    web -->|"/api/v1 rewrite"| proxy
+    mobile -->|"Declared API base"| proxy
+    proxy -->|"Intended origin; verify forwarding"| api
+    device -->|"HMAC + freshness checks"| api
+    api -->|"Server-only persistence"| db
+    api -->|"Scoped events/jobs"| queue
+    api -->|"TLS / provider verification"| providers

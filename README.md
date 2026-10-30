@@ -104,3 +104,7 @@ npm run build
 
 Lệnh kiểm thử Flutter và API có database xem [test-plan.md](docs/test-plan.md).
 Không suy ra toàn bộ test cũ thành công từ kết quả của các bài test chọn cho Review 2.
+
+## Completed Review 2 document package — FA26SE124 / GFA26SE25
+
+See [documents, editable diagrams and original Self-Review](docs/review2/README.md). Review: 05 November 2026. Documentation completion does not claim final hardware, live financial or complete workflow acceptance.

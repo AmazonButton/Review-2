@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-30",
+  "timezone": "Asia/Saigon",
+  "site": "https://buttontdash.vercel.app",
+  "observations": [
+    {
+      "id": "OBS-STORE-LOGIN",
+      "outcome": "Observed",
+      "page": "/store/dashboard"
+    },
+    {
+      "id": "OBS-STORE-DEVICES",
+      "outcome": "Data loaded",
+      "page": "/store/devices"
+    },
+    {
+      "id": "OBS-STORE-WALLET",
+      "outcome": "Read view loaded; no payout/bank mutation",
+      "page": "/store/wallet"
+    },
+    {
+      "id": "OBS-ADMIN-LOGIN",
+      "outcome": "Observed",
+      "page": "/admin/dashboard"
+    },
+    {
+      "id": "OBS-CUSTOMER-LOGIN",
+      "outcome": "Observed after user corrected demo credential",
+      "page": "/customer/home"
+    },
+    {
+      "id": "OBS-CUSTOMER-ORDERS",
+      "outcome": "Own orders page loaded",
+      "page": "/customer/orders"
+    }
+  ],
+  "limits": [
+    "No order/payment/withdrawal/device mutation",
+    "Not a full end-to-end workflow acceptance",
+    "No passwords, tokens, bank details or customer lists retained",
+    "Deployment source revision remains unverified"
+  ]
+}

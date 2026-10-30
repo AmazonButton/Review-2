@@ -1,0 +1,21 @@
+%% Review 2 design revision, 30 Oct 2026; source snapshot 9e7ff50dc6f0c60392b5fe96dd76779d9396c6d1
+%% orders/orders.service.ts and orders/orders.repository.ts; review2 cancellation regression tests
+%% Customer path only. Exactly 120 seconds is rejected. Privileged operational cancellation uses separate authorization and is not granted by this diagram.
+flowchart TD
+    request["Authenticated customer requests cancellation"]
+    own{"Order exists and customer owns it?"}
+    deny["Reject missing/foreign resource<br/>Do not expose order details"]
+    prior{"Already CANCELLED?"}
+    idem["Return prior owned result<br/>No repeated stock mutation"]
+    lock["Precheck -> transaction -> SELECT FOR UPDATE<br/>Read fresh database clock after lock"]
+    guard{"Current status PENDING/CONFIRMED<br/>and 0 <= elapsed <120 seconds?"}
+    expire["Reject current status / expired deadline<br/>No inventory mutation"]
+    commit["Release eligible stock once; write CANCELLED<br/>Commit then notify authorized rooms"]
+    request -->|"OrdersService"| own
+    own -->|"No"| deny
+    own -->|"Yes"| prior
+    prior -->|"Yes"| idem
+    prior -->|"No"| lock
+    lock -->|"OrdersRepository"| guard
+    guard -->|"No"| expire
+    guard -->|"Yes"| commit
